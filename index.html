@@ -1,0 +1,1041 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Partes de mantenimiento</title>
+<meta name="theme-color" content="#1B242C">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Partes">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" href="icons/favicon.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<script src="config.js"></script>
+<style>
+@font-face{font-family:"Barlow";font-weight:400;font-style:normal;font-display:swap;src:url(fonts/barlow-latin-400-normal.woff2) format("woff2")}
+@font-face{font-family:"Barlow";font-weight:500;font-style:normal;font-display:swap;src:url(fonts/barlow-latin-500-normal.woff2) format("woff2")}
+@font-face{font-family:"Barlow";font-weight:600;font-style:normal;font-display:swap;src:url(fonts/barlow-latin-600-normal.woff2) format("woff2")}
+@font-face{font-family:"Barlow Condensed";font-weight:600;font-style:normal;font-display:swap;src:url(fonts/barlow-condensed-latin-600-normal.woff2) format("woff2")}
+@font-face{font-family:"Barlow Condensed";font-weight:700;font-style:normal;font-display:swap;src:url(fonts/barlow-condensed-latin-700-normal.woff2) format("woff2")}
+:root{
+  --body:"Barlow","Segoe UI",system-ui,-apple-system,Roboto,sans-serif;
+  --cond:"Barlow Condensed","Arial Narrow","Roboto Condensed",system-ui,sans-serif;
+  --sig-blue:#1F57A3; --sig-green:#1E7A4C; --sig-yellow:#F2B705; --sig-black:#1A1A1A; --sig-red:#A42A28;
+  --bg:#E8EBED; --surface:#FFFFFF; --ink:#1B242C; --muted:#5A6670;
+  --line:#D3D9DD; --line-strong:#A9B3BA; --field:#FFFFFF;
+  --bar:#1B242C; --bar-ink:#F2F4F5; --bar-muted:#AEB8BF;
+  --red:#A42A28; --amber:#7A5600; --amber-bg:#FCEFC7; --ok:#1E7A4C;
+  --focus:#1F57A3;
+  color-scheme:light;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#151C22; --surface:#1E272F; --ink:#E7ECEF; --muted:#9BA8B2;
+    --line:#2E3A44; --line-strong:#4A5966; --field:#172027;
+    --bar:#0C1115; --bar-ink:#E7ECEF; --bar-muted:#8E9BA5;
+    --red:#EE7470; --amber:#F2C94C; --amber-bg:#3A3015; --ok:#5CC08E;
+    --focus:#7FAEEB;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#151C22; --surface:#1E272F; --ink:#E7ECEF; --muted:#9BA8B2;
+  --line:#2E3A44; --line-strong:#4A5966; --field:#172027;
+  --bar:#0C1115; --bar-ink:#E7ECEF; --bar-muted:#8E9BA5;
+  --red:#EE7470; --amber:#F2C94C; --amber-bg:#3A3015; --ok:#5CC08E;
+  --focus:#7FAEEB;
+  color-scheme:dark;
+}
+html{scroll-padding-top:env(safe-area-inset-top,0px);-webkit-text-size-adjust:100%}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.45;padding-bottom:calc(118px + env(safe-area-inset-bottom,0px))}
+body.overlay-open{padding-bottom:0}
+img{max-width:100%}
+[hidden]{display:none !important}
+:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+.vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+.wrap{max-width:680px;margin:0 auto;padding:0 16px}
+.top{padding:18px 0 14px;border-bottom:2px solid var(--line)}
+.brand{display:flex;align-items:center;justify-content:space-between;gap:8px 16px;flex-wrap:wrap}
+h1{font-family:var(--cond);font-weight:700;font-size:1.95rem;line-height:1.05;margin:0}
+.empresa{margin:2px 0 0;color:var(--muted);font-size:.92rem}
+.empresa:empty{display:none}
+.top-r{display:flex;align-items:center;gap:6px}
+.conn{display:inline-flex;align-items:center;gap:7px;font-size:.88rem;font-weight:600;color:var(--muted)}
+.conn .dot{width:10px;height:10px;border-radius:50%;background:var(--ok)}
+.conn.off .dot{background:transparent;border:2px solid var(--muted)}
+.iconbtn{appearance:none;border:0;background:none;color:var(--ink);width:44px;height:44px;border-radius:6px;display:grid;place-items:center;cursor:pointer;flex:none}
+.iconbtn svg{width:24px;height:24px}
+
+.banner{margin:14px 0 0;padding:10px 12px;border-radius:6px;background:var(--amber-bg);border-left:5px solid var(--sig-yellow);font-size:.93rem}
+
+.tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:20px}
+.tile{appearance:none;border:0;border-radius:6px;padding:14px 12px;min-height:132px;display:flex;flex-direction:column;justify-content:space-between;align-items:flex-start;text-align:left;cursor:pointer;color:#fff;font-family:var(--cond);font-weight:700;font-size:1.45rem;line-height:1;position:relative;overflow:hidden}
+.tile svg{width:42px;height:42px;flex:none}
+.tile small{display:block;font-family:var(--body);font-weight:500;font-size:.82rem;line-height:1.2;margin-top:5px;opacity:.92}
+.tile-in{background:var(--sig-blue)}
+.tile-out{background:var(--sig-green)}
+.tile-inc{background:var(--sig-yellow);color:var(--sig-black);padding-bottom:24px}
+.tile-inc::after{content:"";position:absolute;left:0;right:0;bottom:0;height:11px;background:repeating-linear-gradient(-45deg,var(--sig-black) 0 8px,var(--sig-yellow) 8px 16px)}
+.tile:active{transform:translateY(1px)}
+@media (max-width:360px){.tile{font-size:1.25rem;padding:12px 9px}.tile svg{width:36px;height:36px}}
+@media (min-width:600px){.tile{min-height:150px;font-size:1.65rem}.tile svg{width:48px;height:48px}}
+
+.sec{margin-top:28px}
+.sec:empty{display:none}
+.sec h2{font-family:var(--cond);font-weight:700;font-size:1.35rem;line-height:1.1;margin:0 0 9px;display:flex;align-items:baseline;gap:8px}
+.sec h2 .n{font-family:var(--body);font-weight:600;font-size:.9rem;color:var(--muted)}
+.list{list-style:none;margin:0;padding:0;background:var(--surface);border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.list li+li{border-top:1px solid var(--line)}
+.row{display:grid;grid-template-columns:96px minmax(0,1fr) auto;gap:12px;align-items:center;width:100%;padding:12px 14px;background:none;border:0;font:inherit;color:inherit;text-align:left}
+button.row{cursor:pointer}
+button.row:hover{background:color-mix(in srgb,var(--bg) 60%,var(--surface))}
+.mark{justify-self:start;font-family:var(--cond);font-weight:700;font-size:.98rem;line-height:1.2;padding:3px 8px;border-radius:3px;color:#fff;white-space:nowrap}
+.mark-in{background:var(--sig-blue)}
+.mark-out{background:var(--sig-green)}
+.mark-inc{background:var(--sig-yellow);color:var(--sig-black)}
+.row-main{min-width:0;display:flex;flex-direction:column}
+.row-main strong{font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.row-sub{font-size:.88rem;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.row-time{font-size:.88rem;color:var(--muted);white-space:nowrap;text-align:right;font-variant-numeric:tabular-nums}
+.row.done .row-main strong{font-weight:500}
+@media (max-width:460px){
+  .row{grid-template-columns:minmax(0,1fr) auto;row-gap:6px}
+  .row .mark{grid-column:1/-1}
+}
+.empty{margin:0;color:var(--muted);padding:14px;background:var(--surface);border:1px dashed var(--line-strong);border-radius:6px}
+.note{margin:8px 0 0;font-size:.86rem;color:var(--muted)}
+
+.job{display:flex;align-items:center;gap:12px;padding:12px 14px;background:var(--surface);border:1px solid var(--line);border-left:6px solid var(--sig-blue);border-radius:6px}
+.job+.job{margin-top:8px}
+.job-main{flex:1;min-width:0;display:flex;flex-direction:column}
+.job-main strong{font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+.btn{appearance:none;border:0;border-radius:6px;font-family:var(--cond);font-weight:700;font-size:1.15rem;line-height:1.1;padding:10px 16px;min-height:46px;cursor:pointer;color:inherit;background:none}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.btn-sm{font-size:1.02rem;min-height:42px;padding:8px 12px}
+.btn-ghost{color:var(--ink);border:1.5px solid var(--line-strong);background:var(--surface)}
+.btn-danger{color:var(--red);border:1.5px solid currentColor}
+.btn-out{background:var(--sig-green);color:#fff;white-space:nowrap}
+.sec .btn-ghost{margin-top:10px}
+.linkbtn{appearance:none;border:0;background:none;color:inherit;font:inherit;font-weight:600;text-decoration:underline;text-underline-offset:3px;padding:4px 2px;cursor:pointer}
+
+.help{margin-top:30px;background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:0 14px}
+.help>summary{padding:13px 0;font-weight:600;cursor:pointer}
+.help p{margin:0 0 12px;max-width:62ch}
+
+.syncbar{position:fixed;left:0;right:0;bottom:0;z-index:20;background:var(--bar);color:var(--bar-ink);padding:12px 16px calc(12px + env(safe-area-inset-bottom,0px))}
+.sync-in{max-width:680px;margin:0 auto;display:flex;align-items:center;gap:14px}
+.sync-count{font-family:var(--cond);font-weight:700;font-size:2.7rem;line-height:.85;min-width:1.1ch;text-align:center;font-variant-numeric:tabular-nums}
+.sync-text{flex:1;min-width:0;line-height:1.25}
+.sync-text b{display:block;font-weight:600;font-size:.98rem}
+.sync-text span{display:block;font-size:.86rem;color:var(--bar-muted)}
+.sync-text span.err{color:#FFB4A8}
+.sync-text span.ok{color:#9FE0BC}
+.sync-btn{background:#FFFFFF;color:#1B242C;font-size:1.35rem;padding:12px 20px;min-height:56px;white-space:nowrap}
+.sync-btn:focus-visible{outline-color:#FFFFFF}
+
+.overlay{max-width:680px;margin:0 auto;padding:0 16px}
+.fhead{display:flex;align-items:center;gap:8px;padding:14px 0 12px;border-bottom:6px solid var(--sig-blue)}
+.fhead-out{border-bottom-color:var(--sig-green)}
+.fhead-inc{border-bottom-color:var(--sig-yellow)}
+.fhead-set{border-bottom-color:var(--ink)}
+.fhead h2{font-family:var(--cond);font-weight:700;font-size:2.1rem;line-height:1;margin:0}
+.fhead h2:focus{outline:none}
+.fhead p{margin:3px 0 0;color:var(--muted);font-size:.92rem}
+.back{margin-left:-10px}
+.back svg{width:26px;height:26px}
+.field{margin-top:18px}
+.lbl{display:block;font-weight:600;margin-bottom:6px}
+.opt{font-weight:400;color:var(--muted);font-size:.88rem}
+.hint{margin:5px 0 0;font-size:.86rem;color:var(--muted)}
+.err{margin:5px 0 0;font-size:.9rem;color:var(--red);font-weight:600}
+.err:empty{display:none}
+input[type=text],input[type=datetime-local],textarea,select{width:100%;font:inherit;font-size:1rem;color:var(--ink);background:var(--field);border:1.5px solid var(--line-strong);border-radius:6px;padding:11px 12px;min-height:48px}
+textarea{resize:vertical;min-height:90px;line-height:1.4}
+.has-err input,.has-err textarea,.has-err select{border-color:var(--red)}
+.seg{display:flex;flex-wrap:wrap;gap:6px}
+.seg button{flex:1 1 0;min-width:max-content;min-height:46px;padding:8px 12px;border:1.5px solid var(--line-strong);background:var(--field);color:var(--ink);border-radius:6px;font:inherit;font-weight:600;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--surface);border-color:var(--ink)}
+.toggle{display:flex;align-items:center;gap:12px;min-height:50px;padding:10px 12px;border:1.5px solid var(--line-strong);border-radius:6px;background:var(--field);font-weight:600;cursor:pointer}
+.toggle input{width:24px;height:24px;margin:0;accent-color:var(--sig-red);flex:none}
+.photos{display:flex;flex-wrap:wrap;gap:10px}
+.ph{position:relative;width:98px;height:98px;border-radius:6px;overflow:hidden;border:1px solid var(--line)}
+.ph img{width:100%;height:100%;object-fit:cover;display:block}
+.ph button{position:absolute;top:4px;right:4px;width:32px;height:32px;border-radius:50%;border:0;background:rgba(0,0,0,.7);color:#fff;font-size:20px;line-height:1;cursor:pointer;display:grid;place-items:center}
+.addph{width:98px;height:98px;border:2px dashed var(--line-strong);border-radius:6px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;color:var(--muted);font-size:.85rem;font-weight:600;cursor:pointer;text-align:center}
+.addph svg{width:28px;height:28px}
+.addph.busy{opacity:.6;pointer-events:none}
+input[type=file]:focus-visible+.addph{outline:3px solid var(--focus);outline-offset:2px}
+.sig{position:relative;background:#FFFFFF;border:1.5px solid var(--line-strong);border-radius:6px;height:170px;touch-action:none;overflow:hidden}
+.sig canvas{width:100%;height:100%;display:block;touch-action:none;cursor:crosshair}
+.sig-line{position:absolute;left:16px;right:16px;bottom:38px;border-bottom:1px dashed #9AA5AD;pointer-events:none}
+.sig-ph{position:absolute;left:16px;bottom:12px;font-size:.84rem;color:#6E7A83;pointer-events:none}
+.sig.signed .sig-ph{display:none}
+.sig-tools{display:flex;justify-content:flex-end;margin-top:6px}
+.sig-tools .linkbtn{font-size:.92rem;padding:8px 4px}
+.ffoot{position:sticky;bottom:0;z-index:5;background:var(--bg);margin-top:26px;padding:12px 0 calc(12px + env(safe-area-inset-bottom,0px));display:flex;gap:10px;border-top:1px solid var(--line)}
+.ffoot .btn-save{flex:1;font-size:1.3rem;min-height:56px}
+.save-in{background:var(--sig-blue);color:#fff}
+.save-out{background:var(--sig-green);color:#fff}
+.save-inc{background:var(--sig-yellow);color:var(--sig-black)}
+.save-set{background:var(--ink);color:var(--surface)}
+.info{display:grid;grid-template-columns:max-content minmax(0,1fr);gap:6px 18px;margin:0;padding:12px 14px;background:var(--surface);border:1px solid var(--line);border-radius:6px}
+.info dt{color:var(--muted)}
+.info dd{margin:0;overflow-wrap:anywhere}
+
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(108px + env(safe-area-inset-bottom,0px));z-index:30;background:var(--ink);color:var(--surface);padding:10px 16px;border-radius:6px;font-weight:600;opacity:0;pointer-events:none;transition:opacity .2s;max-width:calc(100% - 32px);text-align:center}
+.toast.show{opacity:1}
+body.overlay-open .toast{bottom:calc(96px + env(safe-area-inset-bottom,0px))}
+@media (prefers-reduced-motion:reduce){.toast{transition:none}.tile:active{transform:none}}
+</style>
+</head>
+<body>
+
+<div class="wrap" id="shell">
+  <header class="top">
+    <div class="brand">
+      <div>
+        <h1>Partes de mantenimiento</h1>
+        <p class="empresa" id="empresa"></p>
+      </div>
+      <div class="top-r">
+        <span class="conn" id="conn" role="status"><span class="dot" aria-hidden="true"></span><span id="connText">Con conexión</span></span>
+        <button class="iconbtn" data-act="ajustes" aria-label="Ajustes de esta tablet">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div id="banners"></div>
+
+  <main>
+    <section class="tiles" aria-label="Crear un parte nuevo">
+      <button class="tile tile-in" data-new="checkin">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h5v16h-5"/><path d="M3 12h11"/><path d="M10 8l4 4-4 4"/></svg>
+        <span>Check-in<small>Llego a la instalación</small></span>
+      </button>
+      <button class="tile tile-out" data-new="checkout">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 4H5v16h5"/><path d="M10 12h11"/><path d="M17 8l4 4-4 4"/></svg>
+        <span>Check-out<small>Termino y me voy</small></span>
+      </button>
+      <button class="tile tile-inc" data-new="incidencia">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.5L22 20.5H2z"/><path d="M12 10v4.5"/><circle cx="12" cy="17.6" r=".9" fill="currentColor"/></svg>
+        <span>Incidencia<small>Avería o problema</small></span>
+      </button>
+    </section>
+
+    <section class="sec" id="enCurso" aria-live="polite"></section>
+    <section class="sec" id="pendientes"></section>
+    <section class="sec" id="subidos"></section>
+
+    <details class="help">
+      <summary>Cómo funciona sin cobertura</summary>
+      <p>Abre la app siempre desde su icono en la pantalla de inicio. Se abre y funciona aunque no haya cobertura.</p>
+      <p>Cada parte se guarda en esta tablet al pulsar Guardar. Al volver a la oficina, con wifi, pulsa Subir todo y los partes pasan a la hoja de cálculo de la empresa.</p>
+      <p>Sube los partes cada día. Si se borran los datos de la app o del navegador, se perderían los que aún no estén subidos.</p>
+    </details>
+  </main>
+</div>
+
+<section id="formView" class="overlay" hidden></section>
+<section id="setupView" class="overlay" hidden></section>
+
+<div class="syncbar" id="syncbar">
+  <div class="sync-in">
+    <div class="sync-count" id="syncCount" aria-hidden="true">0</div>
+    <div class="sync-text" role="status" aria-live="polite">
+      <b id="syncLabel">partes sin subir</b>
+      <span id="syncStatus"></span>
+    </div>
+    <button class="btn sync-btn" id="syncBtn" data-act="sync">Subir todo</button>
+  </div>
+</div>
+
+<datalist id="dl-instalaciones"></datalist>
+<datalist id="dl-equipos"></datalist>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function(){
+'use strict';
+
+const CFG = window.PARTES_CONFIG || {};
+const servidorOk = () => typeof CFG.servidor === 'string' && /^https:\/\/\S+$/.test(CFG.servidor.trim()) && CFG.servidor.indexOf('PEGA_AQUI') === -1;
+
+/* ---------- utilidades ---------- */
+const $ = (s, r) => (r || document).querySelector(s);
+const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+const isImg = s => typeof s === 'string' && /^data:image\/(png|jpe?g|webp);base64,[A-Za-z0-9+/=]+$/.test(s);
+const newId = () => 'p' + Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
+const pad = n => String(n).padStart(2, '0');
+const toLocalInput = iso => { const d = new Date(iso); if (isNaN(d)) return ''; return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`; };
+const hhmm = d => `${pad(d.getHours())}:${pad(d.getMinutes())}`;
+const fmt = iso => {
+  const d = new Date(iso); if (isNaN(d)) return '';
+  if (d.toDateString() === new Date().toDateString()) return hhmm(d);
+  return d.toLocaleDateString('es-ES', {day:'numeric', month:'short'}).replace('.', '') + ' ' + hhmm(d);
+};
+const fmtFull = iso => { const d = new Date(iso); if (isNaN(d)) return ''; return `${pad(d.getDate())}/${pad(d.getMonth()+1)}/${d.getFullYear()} ${hhmm(d)}`; };
+const byFechaDesc = (a, b) => String(b.fecha).localeCompare(String(a.fecha));
+const isStandalone = () => (window.matchMedia && matchMedia('(display-mode: standalone)').matches) || navigator.standalone === true;
+const isIOS = () => /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+
+const TIPOS = {
+  checkin:    {nombre:'Check-in',   cls:'in'},
+  checkout:   {nombre:'Check-out',  cls:'out'},
+  incidencia: {nombre:'Incidencia', cls:'inc'}
+};
+
+/* ---------- almacenamiento en la tablet (IndexedDB) ---------- */
+const store = (() => {
+  let mem = null, dbp = null;
+  function open(){
+    if (!dbp) dbp = new Promise((res, rej) => {
+      let r;
+      try { r = indexedDB.open('partes-mantenimiento', 1); } catch (e) { rej(e); return; }
+      const t = setTimeout(() => rej(new Error('timeout')), 4000);
+      r.onupgradeneeded = () => {
+        const d = r.result;
+        if (!d.objectStoreNames.contains('partes')) d.createObjectStore('partes', {keyPath:'id'});
+        if (!d.objectStoreNames.contains('kv')) d.createObjectStore('kv');
+      };
+      r.onsuccess = () => { clearTimeout(t); res(r.result); };
+      r.onerror = () => { clearTimeout(t); rej(r.error); };
+    });
+    return dbp;
+  }
+  function run(name, mode, fn){
+    return open().then(d => new Promise((res, rej) => {
+      const tx = d.transaction(name, mode);
+      const rq = fn(tx.objectStore(name));
+      tx.oncomplete = () => res(rq ? rq.result : undefined);
+      tx.onerror = () => rej(tx.error);
+      tx.onabort = () => rej(tx.error);
+    }));
+  }
+  return {
+    async init(){ try { await open(); return true; } catch (e) { mem = {partes:new Map(), kv:new Map()}; return false; } },
+    async all(){ return mem ? [...mem.partes.values()] : run('partes', 'readonly', s => s.getAll()); },
+    async put(p){ if (mem) { mem.partes.set(p.id, JSON.parse(JSON.stringify(p))); return; } return run('partes', 'readwrite', s => s.put(p)); },
+    async del(id){ if (mem) { mem.partes.delete(id); return; } return run('partes', 'readwrite', s => s.delete(id)); },
+    async get(k){ return mem ? mem.kv.get(k) : run('kv', 'readonly', s => s.get(k)); },
+    async set(k, v){ if (mem) { mem.kv.set(k, v); return; } return run('kv', 'readwrite', s => s.put(v, k)); }
+  };
+})();
+
+/* ---------- estado ---------- */
+const S = {
+  partes: [],
+  kv: {operario:'', instalaciones:[], equipos:[], tablet:'', codigo:'', aplazado:false, ultimoEnvio:''},
+  persistent: true,
+  online: navigator.onLine !== false,
+  syncing: false, progress: '', msg: null,
+  installEvt: null, nuevaVersion: null, actualizando: false
+};
+let msgTimer = null;
+
+/* ---------- formularios ---------- */
+const COMMON = [
+  {k:'operario', t:'text', label:'Operario', req:true},
+  {k:'fecha', t:'datetime', label:'Fecha y hora', req:true},
+  {k:'instalacion', t:'text', label:'Instalación o ubicación', req:true, list:'instalaciones'},
+  {k:'equipo', t:'text', label:'Equipo', opt:true, list:'equipos', hint:'Nombre o código del equipo.'},
+  {k:'ot', t:'text', label:'Orden de trabajo', opt:true}
+];
+const FORMS = {
+  checkin: {desc:'Llegada a la instalación', fields:[
+    ...COMMON,
+    {k:'tipoTrabajo', t:'seg', label:'Tipo de trabajo', opts:['Preventivo','Correctivo','Inspección','Otro'], def:'Preventivo'},
+    {k:'observaciones', t:'area', label:'Observaciones', opt:true}
+  ]},
+  checkout: {desc:'Salida y trabajo realizado', fields:[
+    {k:'checkinId', t:'link', label:'Check-in que cierras', opt:true},
+    ...COMMON,
+    {k:'trabajoRealizado', t:'area', label:'Trabajo realizado', req:true, rows:4},
+    {k:'materiales', t:'area', label:'Materiales y repuestos', opt:true, rows:2},
+    {k:'estadoEquipo', t:'seg', label:'Estado del equipo al salir', opts:['Operativo','Con reservas','Fuera de servicio'], def:'Operativo'},
+    {k:'observaciones', t:'area', label:'Observaciones', opt:true, rows:2},
+    {k:'firmante', t:'text', label:'Nombre de quien firma', opt:true},
+    {k:'firma', t:'sig', label:'Firma de conformidad', opt:true}
+  ]},
+  incidencia: {desc:'Avería o problema detectado', fields:[
+    ...COMMON,
+    {k:'categoria', t:'select', label:'Tipo de incidencia', req:true, placeholder:'Elige el tipo', opts:['Eléctrica','Mecánica','Fontanería','Climatización','Obra y estructura','Seguridad','Otra']},
+    {k:'prioridad', t:'seg', label:'Prioridad', opts:['Baja','Media','Alta','Crítica'], def:'Media'},
+    {k:'equipoParado', t:'toggle', label:'El equipo está parado'},
+    {k:'descripcion', t:'area', label:'Qué ocurre', req:true, rows:4},
+    {k:'fotos', t:'photos', label:'Fotos', opt:true, hint:'Hasta 3. Se reducen para que ocupen poco.'}
+  ]}
+};
+
+const F = {}; // formulario abierto
+
+function openCheckins(exceptCheckoutId){
+  return S.partes
+    .filter(p => p.tipo === 'checkin' && (!p.cerradoPor || p.cerradoPor === exceptCheckoutId))
+    .sort(byFechaDesc);
+}
+
+function fieldHTML(f, v){
+  const id = 'f_' + f.k;
+  const opt = f.opt ? ' <span class="opt">(opcional)</span>' : '';
+  const hint = f.hint ? `<p class="hint" id="${id}-h">${esc(f.hint)}</p>` : '';
+  const err = `<p class="err" id="${id}-e"></p>`;
+  const desc = `aria-describedby="${f.hint ? id + '-h ' : ''}${id}-e"`;
+  const lab = `<label class="lbl" for="${id}">${esc(f.label)}${opt}</label>`;
+  const wrap = inner => `<div class="field" data-k="${f.k}">${inner}</div>`;
+  switch (f.t) {
+    case 'text':
+      return wrap(`${lab}<input type="text" id="${id}" value="${esc(v)}" ${f.list ? `list="dl-${f.list}"` : ''} autocomplete="off" ${desc}>${hint}${err}`);
+    case 'datetime':
+      return wrap(`${lab}<input type="datetime-local" id="${id}" value="${esc(toLocalInput(v))}" ${desc}>${hint}${err}`);
+    case 'area':
+      return wrap(`${lab}<textarea id="${id}" rows="${f.rows || 3}" ${desc}>${esc(v)}</textarea>${hint}${err}`);
+    case 'select':
+      return wrap(`${lab}<select id="${id}" ${desc}><option value="">${esc(f.placeholder || 'Elige una opción')}</option>${f.opts.map(o => `<option ${o === v ? 'selected' : ''}>${esc(o)}</option>`).join('')}</select>${hint}${err}`);
+    case 'seg': {
+      const cur = v || f.def;
+      return wrap(`<span class="lbl" id="${id}-l">${esc(f.label)}</span><div class="seg" role="group" aria-labelledby="${id}-l">${f.opts.map(o => `<button type="button" data-val="${esc(o)}" aria-pressed="${o === cur}">${esc(o)}</button>`).join('')}</div>${hint}`);
+    }
+    case 'toggle':
+      return wrap(`<label class="toggle"><input type="checkbox" id="${id}" ${v ? 'checked' : ''}><span>${esc(f.label)}</span></label>`);
+    case 'link': {
+      const list = openCheckins(F.editing);
+      return wrap(`${lab}<select id="${id}"><option value="">Sin check-in previo</option>${list.map(c => `<option value="${esc(c.id)}" ${c.id === v ? 'selected' : ''}>${esc(c.instalacion)}${c.equipo ? ', ' + esc(c.equipo) : ''} (desde ${esc(fmt(c.fecha))})</option>`).join('')}</select><p class="hint">Al elegirlo se rellenan los datos y se calcula el tiempo de trabajo.</p>`);
+    }
+    case 'photos':
+      return wrap(`<span class="lbl" id="${id}-l">${esc(f.label)}${opt}</span><div class="photos" id="photoBox" aria-labelledby="${id}-l"></div>${hint}`);
+    case 'sig':
+      return wrap(`<span class="lbl" id="${id}-l">${esc(f.label)}${opt}</span><div class="sig" role="img" aria-labelledby="${id}-l"><canvas></canvas><div class="sig-line"></div><div class="sig-ph">Firma aquí con el dedo</div></div><div class="sig-tools"><button type="button" class="linkbtn" data-act="sigclear">Borrar firma</button></div>`);
+  }
+  return '';
+}
+
+/* ---------- vistas superpuestas (formulario y ajustes) ---------- */
+let overlayScroll = 0;
+function showOverlay(el){
+  overlayScroll = window.scrollY;
+  $('#shell').hidden = true;
+  $('#syncbar').hidden = true;
+  $('#formView').hidden = el.id !== 'formView';
+  $('#setupView').hidden = el.id !== 'setupView';
+  document.body.classList.add('overlay-open');
+  window.scrollTo(0, 0);
+  const h = el.querySelector('h2'); if (h) h.focus({preventScroll:true});
+}
+function closeOverlay(){
+  for (const id of ['formView', 'setupView']) { const v = document.getElementById(id); v.hidden = true; v.innerHTML = ''; }
+  $('#shell').hidden = false;
+  $('#syncbar').hidden = false;
+  document.body.classList.remove('overlay-open');
+  render();
+  window.scrollTo(0, overlayScroll);
+}
+
+const BACK_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>';
+
+function openForm(tipo, opts){
+  opts = opts || {};
+  const spec = FORMS[tipo];
+  const base = opts.editId ? S.partes.find(p => p.id === opts.editId) : null;
+  for (const k of Object.keys(F)) delete F[k];
+  Object.assign(F, {tipo, editing: base ? base.id : null, dirty:false, backArmed:false, delArmed:false});
+  const vals = Object.assign({operario: S.kv.operario, fecha: new Date().toISOString()}, opts.prefill || {}, base || {});
+  F.fotos = Array.isArray(vals.fotos) ? vals.fotos.slice() : [];
+  const t = TIPOS[tipo];
+
+  $('#dl-instalaciones').innerHTML = S.kv.instalaciones.map(x => `<option value="${esc(x)}"></option>`).join('');
+  $('#dl-equipos').innerHTML = S.kv.equipos.map(x => `<option value="${esc(x)}"></option>`).join('');
+
+  const fv = $('#formView');
+  fv.innerHTML = `
+    <div class="fhead fhead-${t.cls}">
+      <button type="button" class="iconbtn back" data-act="back" aria-label="Volver sin guardar">${BACK_SVG}</button>
+      <div><h2 tabindex="-1">${base ? 'Editar ' + esc(t.nombre.toLowerCase()) : esc(t.nombre)}</h2><p>${esc(spec.desc)}</p></div>
+    </div>
+    <form id="parteForm" novalidate>
+      ${spec.fields.map(f => fieldHTML(f, vals[f.k])).join('')}
+      <div class="ffoot">
+        ${base ? '<button type="button" class="btn btn-danger" data-act="del">Eliminar</button>' : ''}
+        <button type="submit" class="btn btn-save save-${t.cls}">Guardar en la tablet</button>
+      </div>
+    </form>`;
+  showOverlay(fv);
+  const sigWrap = fv.querySelector('.sig');
+  F.sig = sigWrap ? setupSig(sigWrap, vals.firma) : null;
+  renderPhotos();
+}
+
+function collect(){
+  const spec = FORMS[F.tipo], out = {}, fv = $('#formView');
+  for (const f of spec.fields) {
+    const el = $('#f_' + f.k, fv);
+    switch (f.t) {
+      case 'text': case 'area': case 'select': out[f.k] = el ? el.value.trim() : ''; break;
+      case 'datetime': { const d = el && el.value ? new Date(el.value) : null; out[f.k] = d && !isNaN(d) ? d.toISOString() : ''; break; }
+      case 'seg': { const b = $(`.field[data-k="${f.k}"] [aria-pressed="true"]`, fv); out[f.k] = b ? b.dataset.val : f.def; break; }
+      case 'toggle': out[f.k] = !!(el && el.checked); break;
+      case 'link': out[f.k] = el && el.value ? el.value : null; break;
+      case 'photos': out[f.k] = F.fotos.slice(); break;
+      case 'sig': out[f.k] = F.sig ? F.sig.value() : null; break;
+    }
+  }
+  return out;
+}
+
+async function saveForm(){
+  const spec = FORMS[F.tipo], fv = $('#formView');
+  const vals = collect();
+  let first = null;
+  fv.querySelectorAll('.field').forEach(el => {
+    el.classList.remove('has-err');
+    const e = el.querySelector('.err'); if (e) e.textContent = '';
+    const i = el.querySelector('[aria-invalid]'); if (i) i.removeAttribute('aria-invalid');
+  });
+  for (const f of spec.fields) {
+    if (f.req && !vals[f.k]) {
+      const el = $(`.field[data-k="${f.k}"]`, fv);
+      el.classList.add('has-err');
+      el.querySelector('.err').textContent = f.t === 'datetime' ? 'Indica la fecha y la hora.' : 'Falta este dato.';
+      const inp = el.querySelector('input,textarea,select'); if (inp) inp.setAttribute('aria-invalid', 'true');
+      first = first || el;
+    }
+  }
+  if (first) {
+    first.scrollIntoView({block:'center'});
+    const inp = first.querySelector('input,textarea,select'); if (inp) inp.focus({preventScroll:true});
+    toast('Faltan datos obligatorios');
+    return;
+  }
+
+  const now = new Date().toISOString();
+  const base = F.editing ? S.partes.find(p => p.id === F.editing) : null;
+  const p = Object.assign({}, base || {id:newId(), tipo:F.tipo, guardadoEn:now, estado:'pendiente'}, vals);
+  if (base) p.editadoEn = now;
+
+  try {
+    if (p.tipo === 'checkout') {
+      const prev = base ? base.checkinId : null;
+      if (prev && prev !== p.checkinId) {
+        const c = S.partes.find(x => x.id === prev);
+        if (c && c.cerradoPor === p.id) { c.cerradoPor = null; await store.put(c); }
+      }
+      p.duracionMin = null;
+      if (p.checkinId) {
+        const c = S.partes.find(x => x.id === p.checkinId);
+        if (c) {
+          c.cerradoPor = p.id; await store.put(c);
+          const m = Math.round((new Date(p.fecha) - new Date(c.fecha)) / 60000);
+          p.duracionMin = m >= 0 ? m : null;
+        }
+      }
+    }
+    await store.put(p);
+  } catch (e) {
+    toast('No se pudo guardar en la tablet. Inténtalo de nuevo.');
+    return;
+  }
+
+  const i = S.partes.findIndex(x => x.id === p.id);
+  if (i >= 0) S.partes[i] = p; else S.partes.push(p);
+  remember(p);
+  closeOverlay();
+  toast(base ? 'Cambios guardados en la tablet' : 'Parte guardado en la tablet');
+}
+
+async function deleteCurrent(){
+  const p = S.partes.find(x => x.id === F.editing);
+  if (!p) { closeOverlay(); return; }
+  try {
+    if (p.tipo === 'checkout' && p.checkinId) {
+      const c = S.partes.find(x => x.id === p.checkinId);
+      if (c && c.cerradoPor === p.id) { c.cerradoPor = null; await store.put(c); }
+    }
+    await store.del(p.id);
+  } catch (e) { toast('No se pudo eliminar. Inténtalo de nuevo.'); return; }
+  S.partes = S.partes.filter(x => x.id !== p.id);
+  closeOverlay();
+  toast('Parte eliminado');
+}
+
+function remember(p){
+  const add = (list, v) => v ? [v, ...list.filter(x => x.toLowerCase() !== v.toLowerCase())].slice(0, 60) : list;
+  S.kv.operario = p.operario || S.kv.operario;
+  S.kv.instalaciones = add(S.kv.instalaciones, p.instalacion);
+  S.kv.equipos = add(S.kv.equipos, p.equipo);
+  store.set('operario', S.kv.operario).catch(() => {});
+  store.set('instalaciones', S.kv.instalaciones).catch(() => {});
+  store.set('equipos', S.kv.equipos).catch(() => {});
+}
+
+function prefillFromCheckin(id){
+  const c = S.partes.find(p => p.id === id); if (!c) return;
+  for (const k of ['operario', 'instalacion', 'equipo', 'ot']) {
+    const el = $('#f_' + k); if (el && c[k]) el.value = c[k];
+  }
+}
+
+/* ---------- firma ---------- */
+function setupSig(wrap, existing){
+  const cv = wrap.querySelector('canvas');
+  const dpr = Math.min(2, window.devicePixelRatio || 1);
+  const w = wrap.clientWidth, h = wrap.clientHeight;
+  cv.width = Math.round(w * dpr); cv.height = Math.round(h * dpr);
+  const ctx = cv.getContext('2d');
+  ctx.scale(dpr, dpr);
+  ctx.lineWidth = 2.4; ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+  ctx.strokeStyle = ctx.fillStyle = '#14202B';
+  const sig = {drawn:false, data: isImg(existing) ? existing : null};
+  if (sig.data) {
+    wrap.classList.add('signed');
+    const im = new Image(); im.onload = () => ctx.drawImage(im, 0, 0, w, h); im.src = sig.data;
+  }
+  let drawing = false, last = null;
+  const pos = e => { const r = cv.getBoundingClientRect(); return {x: e.clientX - r.left, y: e.clientY - r.top}; };
+  cv.addEventListener('pointerdown', e => {
+    e.preventDefault();
+    try { cv.setPointerCapture(e.pointerId); } catch (_) {}
+    drawing = true; last = pos(e);
+    ctx.beginPath(); ctx.arc(last.x, last.y, 1.2, 0, Math.PI * 2); ctx.fill();
+    sig.drawn = true; F.dirty = true; wrap.classList.add('signed');
+  });
+  cv.addEventListener('pointermove', e => {
+    if (!drawing) return;
+    const p = pos(e);
+    ctx.beginPath(); ctx.moveTo(last.x, last.y); ctx.lineTo(p.x, p.y); ctx.stroke();
+    last = p;
+  });
+  const end = () => { drawing = false; };
+  cv.addEventListener('pointerup', end);
+  cv.addEventListener('pointercancel', end);
+  sig.clear = () => { ctx.clearRect(0, 0, w, h); sig.drawn = false; sig.data = null; wrap.classList.remove('signed'); };
+  sig.value = () => sig.drawn ? cv.toDataURL('image/png') : sig.data;
+  return sig;
+}
+
+/* ---------- fotos ---------- */
+function renderPhotos(){
+  const box = $('#photoBox'); if (!box) return;
+  const thumbs = F.fotos.map((src, i) => `<div class="ph"><img src="${esc(src)}" alt="Foto ${i + 1}"><button type="button" data-rmph="${i}" aria-label="Quitar foto ${i + 1}">×</button></div>`).join('');
+  const add = F.fotos.length < 3 ? `<input type="file" id="photoIn" class="vh" accept="image/*" multiple><label for="photoIn" class="addph" id="addph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>Añadir foto</label>` : '';
+  box.innerHTML = thumbs + add;
+}
+function loadImg(src){
+  return new Promise((res, rej) => { const im = new Image(); im.onload = () => res(im); im.onerror = rej; im.src = src; });
+}
+async function compress(file){
+  const url = URL.createObjectURL(file);
+  try {
+    const img = await loadImg(url);
+    let max = 1280, q = 0.72, out = '';
+    for (let a = 0; a < 7; a++) {
+      const sc = Math.min(1, max / Math.max(img.naturalWidth, img.naturalHeight));
+      const c = document.createElement('canvas');
+      c.width = Math.max(1, Math.round(img.naturalWidth * sc));
+      c.height = Math.max(1, Math.round(img.naturalHeight * sc));
+      c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
+      out = c.toDataURL('image/jpeg', q);
+      if (out.length <= 300000) return out;
+      max = Math.round(max * 0.8); q = Math.max(0.45, q - 0.07);
+    }
+    return out;
+  } finally { URL.revokeObjectURL(url); }
+}
+
+/* ---------- servidor (Google Apps Script) ---------- */
+async function llamar(cuerpo, ms){
+  const ctl = new AbortController();
+  const t = setTimeout(() => ctl.abort(), ms || 90000);
+  let res, j;
+  try {
+    res = await fetch(CFG.servidor.trim(), {
+      method: 'POST',
+      headers: {'Content-Type': 'text/plain;charset=utf-8'},
+      body: JSON.stringify(cuerpo),
+      redirect: 'follow', cache: 'no-store', signal: ctl.signal
+    });
+    try { j = await res.json(); } catch (e) { throw {code:'respuesta'}; }
+  } catch (e) {
+    throw (e && e.code) ? e : {code:'red'};
+  } finally { clearTimeout(t); }
+  if (!j || j.ok !== true) throw {code: (j && j.error) || 'respuesta', detalle: j && j.detalle};
+  return j;
+}
+
+function cuerpoParte(p){
+  const b = {
+    id: p.id, tipo: p.tipo, fecha: p.fecha,
+    operario: p.operario || '', instalacion: p.instalacion || '', equipo: p.equipo || '', ot: p.ot || '',
+    observaciones: p.observaciones || '', guardadoEn: p.guardadoEn || ''
+  };
+  if (p.tipo === 'checkin') b.tipoTrabajo = p.tipoTrabajo || '';
+  if (p.tipo === 'checkout') Object.assign(b, {
+    checkinId: p.checkinId || '', trabajoRealizado: p.trabajoRealizado || '', materiales: p.materiales || '',
+    estadoEquipo: p.estadoEquipo || '', duracionMin: Number.isFinite(p.duracionMin) ? p.duracionMin : '',
+    firmante: p.firmante || '', firma: isImg(p.firma) ? p.firma : ''
+  });
+  if (p.tipo === 'incidencia') Object.assign(b, {
+    categoria: p.categoria || '', prioridad: p.prioridad || '', equipoParado: !!p.equipoParado,
+    descripcion: p.descripcion || '', fotos: (p.fotos || []).filter(isImg)
+  });
+  return b;
+}
+
+function textoError(e){
+  switch (e && e.code) {
+    case 'codigo': return 'El servidor no acepta el código de esta tablet. Revísalo en Ajustes (engranaje de arriba).';
+    case 'sin-configurar': return 'El servidor no está terminado de configurar. Avisa a quien lo montó (guía, paso 2).';
+    case 'ocupado': return 'El servidor está ocupado. Vuelve a pulsar Subir todo en un momento.';
+    case 'datos': return 'Un parte tiene datos que el servidor no acepta. Ábrelo, revísalo y vuelve a intentarlo.';
+    case 'servidor': return 'El servidor dio un error al guardar. Vuelve a intentarlo y, si se repite, avisa a la oficina.';
+    case 'respuesta': return 'El servidor no respondió como se esperaba. Revisa que el script esté publicado con acceso para Cualquier usuario (guía, paso 3).';
+    default: return 'No se pudo conectar con el servidor. Comprueba la conexión y vuelve a pulsar Subir todo.';
+  }
+}
+
+function setMsg(text, kind, ttl){
+  clearTimeout(msgTimer);
+  S.msg = text ? {text, kind} : null;
+  if (text && ttl) msgTimer = setTimeout(() => { S.msg = null; renderSync(); }, ttl);
+}
+
+async function subirUno(p){
+  const cuerpo = {accion:'parte', codigo:S.kv.codigo, tablet:S.kv.tablet, parte:cuerpoParte(p)};
+  try { await llamar(cuerpo); }
+  catch (e) {
+    if (e.code !== 'red' && e.code !== 'ocupado') throw e;
+    await sleep(1500 + Math.random() * 1500);
+    await llamar(cuerpo); // reintento: el servidor no duplica partes ya recibidos
+  }
+}
+
+async function sync(){
+  if (S.syncing) return;
+  const pend = S.partes.filter(p => p.estado === 'pendiente').sort((a, b) => String(a.fecha).localeCompare(String(b.fecha)));
+  if (!pend.length) return;
+  if (!servidorOk() || !S.kv.codigo) { openSetup({aviso:'Antes de subir partes hay que preparar esta tablet.'}); return; }
+  if (!S.online) { setMsg('Sin conexión. Conéctate a la wifi de la oficina y vuelve a pulsar.', 'err'); renderSync(); return; }
+  S.syncing = true; setMsg(null);
+  let ok = 0, fail = null;
+  for (let i = 0; i < pend.length; i++) {
+    S.progress = `Subiendo ${i + 1} de ${pend.length}…`; renderSync();
+    const p = pend[i];
+    try {
+      await subirUno(p);
+      p.estado = 'subido'; p.subidoEn = new Date().toISOString();
+      try { await store.put(p); } catch (_) {}
+      ok++;
+    } catch (e) { fail = e; break; }
+  }
+  S.syncing = false;
+  if (ok) { S.kv.ultimoEnvio = new Date().toISOString(); store.set('ultimoEnvio', S.kv.ultimoEnvio).catch(() => {}); }
+  if (fail) setMsg((ok ? `Se subieron ${ok} de ${pend.length}. ` : '') + textoError(fail), 'err');
+  else setMsg(ok === 1 ? 'Subido 1 parte.' : `Subidos ${ok} partes.`, 'ok', 9000);
+  render();
+}
+
+async function clearUploaded(){
+  const keep = S.partes.filter(p => p.estado !== 'subido' || (p.tipo === 'checkin' && !p.cerradoPor));
+  const drop = S.partes.filter(p => keep.indexOf(p) === -1);
+  for (const p of drop) { try { await store.del(p.id); } catch (_) {} }
+  S.partes = keep;
+  render();
+  toast(drop.length === 1 ? 'Quitado 1 parte de la tablet' : `Quitados ${drop.length} partes de la tablet`);
+}
+
+/* ---------- ajustes de la tablet ---------- */
+function openSetup(opts){
+  opts = opts || {};
+  const pend = S.partes.filter(p => p.estado === 'pendiente').length;
+  let aviso = '';
+  if (!isStandalone()) {
+    aviso = isIOS()
+      ? 'Estás usando la app desde Safari. Añádela primero a la pantalla de inicio (botón Compartir, Añadir a pantalla de inicio) y haz este paso desde el icono: el icono no comparte los ajustes con Safari.'
+      : 'Estás usando la app desde el navegador. Instálala primero en la tablet y haz este paso desde el icono.';
+  }
+  const sv = $('#setupView');
+  sv.innerHTML = `
+    <div class="fhead fhead-set">
+      <button type="button" class="iconbtn back" data-act="setupback" aria-label="${S.kv.codigo ? 'Volver' : 'Ahora no'}">${BACK_SVG}</button>
+      <div><h2 tabindex="-1">Ajustes de esta tablet</h2><p>Se hace una vez, en la oficina y con conexión.</p></div>
+    </div>
+    ${opts.aviso ? `<p class="banner">${esc(opts.aviso)}</p>` : ''}
+    ${!servidorOk() ? '<p class="banner">Falta la dirección del servidor en el archivo config.js. Quien instale la app debe completarla (guía, paso 4).</p>' : ''}
+    ${aviso ? `<p class="banner">${esc(aviso)}${S.installEvt ? ' <button type="button" class="linkbtn" data-act="instalar">Instalar ahora</button>' : ''}</p>` : ''}
+    <form id="setupForm" novalidate>
+      <div class="field"><label class="lbl" for="s_tablet">Nombre de esta tablet</label>
+        <input type="text" id="s_tablet" value="${esc(S.kv.tablet)}" autocomplete="off" aria-describedby="s_tablet-h">
+        <p class="hint" id="s_tablet-h">Aparece en la hoja de cálculo para saber de qué tablet llegó cada parte. Por ejemplo, Tablet Juan.</p></div>
+      <div class="field"><label class="lbl" for="s_operario">Técnico habitual <span class="opt">(opcional)</span></label>
+        <input type="text" id="s_operario" value="${esc(S.kv.operario)}" autocomplete="off" aria-describedby="s_operario-h">
+        <p class="hint" id="s_operario-h">Se rellena solo en el campo Operario de cada parte.</p></div>
+      <div class="field"><label class="lbl" for="s_codigo">Código de acceso</label>
+        <input type="text" id="s_codigo" value="${esc(S.kv.codigo)}" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" aria-describedby="s_codigo-h">
+        <p class="hint" id="s_codigo-h">Te lo da la oficina. Sirve para que solo vuestras tablets puedan enviar partes.</p></div>
+      <p class="err" id="setupErr" role="alert"></p>
+      <div class="ffoot">
+        ${!S.kv.codigo ? '<button type="button" class="btn btn-ghost" data-act="setupback">Ahora no</button>' : ''}
+        <button type="submit" class="btn btn-save save-set" id="setupBtn">Comprobar y guardar</button>
+      </div>
+    </form>
+    <section class="sec">
+      <h2>Esta tablet</h2>
+      <dl class="info">
+        <dt>Partes sin subir</dt><dd>${pend}</dd>
+        <dt>Último envío</dt><dd>${S.kv.ultimoEnvio ? esc(fmtFull(S.kv.ultimoEnvio)) : 'Ninguno todavía'}</dd>
+        <dt>Servidor</dt><dd>${servidorOk() ? 'Configurado' : 'Sin configurar'}</dd>
+        <dt>Instalada</dt><dd>${isStandalone() ? 'Sí, abierta desde el icono' : 'No, abierta desde el navegador'}</dd>
+      </dl>
+    </section>`;
+  showOverlay(sv);
+}
+
+async function guardarSetup(sinComprobar){
+  const tablet = $('#s_tablet').value.trim();
+  const operario = $('#s_operario').value.trim();
+  const codigo = $('#s_codigo').value.trim();
+  const err = $('#setupErr'), btn = $('#setupBtn');
+  err.textContent = '';
+  if (!tablet) { err.textContent = 'Escribe un nombre para esta tablet.'; $('#s_tablet').focus(); return; }
+  if (!codigo) { err.textContent = 'Escribe el código de acceso.'; $('#s_codigo').focus(); return; }
+  if (!sinComprobar) {
+    if (!servidorOk()) { err.textContent = 'Falta la dirección del servidor en config.js (guía, paso 4).'; return; }
+    btn.disabled = true; btn.textContent = 'Comprobando…';
+    try {
+      await llamar({accion:'ping', codigo, tablet}, 30000);
+    } catch (e) {
+      btn.disabled = false; btn.textContent = 'Comprobar y guardar';
+      if (e.code === 'codigo') err.textContent = 'El servidor no acepta este código. Revísalo con la oficina.';
+      else if (e.code === 'red') err.innerHTML = 'No se pudo conectar con el servidor. Comprueba la conexión o <button type="button" class="linkbtn" data-act="setupsin">guarda sin comprobar</button>.';
+      else err.textContent = textoError(e);
+      return;
+    }
+  }
+  S.kv.tablet = tablet; S.kv.codigo = codigo; S.kv.aplazado = false;
+  if (operario) S.kv.operario = operario;
+  try {
+    await store.set('tablet', tablet);
+    await store.set('codigo', codigo);
+    await store.set('operario', S.kv.operario);
+    await store.set('aplazado', false);
+  } catch (_) {}
+  closeOverlay();
+  toast(sinComprobar ? 'Ajustes guardados sin comprobar' : 'Tablet preparada');
+}
+
+/* ---------- render ---------- */
+function rowHTML(p, editable){
+  const t = TIPOS[p.tipo] || {nombre:p.tipo, cls:'in'};
+  let sub = p.tipo === 'incidencia'
+    ? [p.prioridad ? 'Prioridad ' + p.prioridad.toLowerCase() : '', p.equipo].filter(Boolean).join(', ')
+    : [p.equipo, p.ot ? 'OT ' + p.ot : ''].filter(Boolean).join(', ');
+  if (!editable && p.subidoEn) sub = 'Subido ' + fmt(p.subidoEn) + (sub ? ', ' + sub : '');
+  const inner = `<span class="mark mark-${t.cls}">${esc(t.nombre)}</span><span class="row-main"><strong>${esc(p.instalacion)}</strong><span class="row-sub">${esc(sub)}</span></span><span class="row-time">${esc(fmt(p.fecha))}</span>`;
+  return editable
+    ? `<li><button class="row" data-edit="${esc(p.id)}" aria-label="Editar ${esc(t.nombre)} de ${esc(p.instalacion)}">${inner}</button></li>`
+    : `<li><div class="row done">${inner}</div></li>`;
+}
+
+function renderDevice(){
+  const open = openCheckins();
+  $('#enCurso').innerHTML = open.length
+    ? `<h2>En curso <span class="n">${open.length}</span></h2>` + open.map(c => `
+      <div class="job"><div class="job-main"><strong>${esc(c.instalacion)}</strong><span class="row-sub">${esc([c.equipo, 'desde ' + fmt(c.fecha)].filter(Boolean).join(', '))}</span></div>
+      <button class="btn btn-sm btn-out" data-close="${esc(c.id)}">Hacer check-out</button></div>`).join('')
+    : '';
+
+  const pend = S.partes.filter(p => p.estado === 'pendiente').sort(byFechaDesc);
+  $('#pendientes').innerHTML = `<h2>Sin subir <span class="n">${pend.length}</span></h2>` + (pend.length
+    ? `<ul class="list">${pend.map(p => rowHTML(p, true)).join('')}</ul><p class="note">Toca un parte para corregirlo antes de subirlo.</p>`
+    : `<p class="empty">No hay partes sin subir. Crea uno con los botones de arriba.</p>`);
+
+  const sub = S.partes.filter(p => p.estado === 'subido').sort(byFechaDesc);
+  $('#subidos').innerHTML = sub.length
+    ? `<h2>Ya subidos <span class="n">${sub.length}</span></h2><ul class="list">${sub.slice(0, 30).map(p => rowHTML(p, false)).join('')}</ul>
+       <button class="btn btn-ghost btn-sm" data-act="clear">Quitar de la tablet los ya subidos</button>`
+    : '';
+}
+
+function renderConn(){
+  $('#conn').classList.toggle('off', !S.online);
+  $('#connText').textContent = S.online ? 'Con conexión' : 'Sin conexión';
+}
+
+function renderBanners(){
+  const b = [];
+  if (S.nuevaVersion) b.push('Hay una versión nueva de la app. <button class="linkbtn" data-act="actualizar">Actualizar ahora</button>');
+  if (!S.persistent) b.push('Esta tablet no deja guardar partes. No cierres la app hasta haberlos subido.');
+  if (!S.kv.codigo || !servidorOk()) b.push('Esta tablet aún no está preparada para subir partes. <button class="linkbtn" data-act="ajustes">Prepararla</button>');
+  if (!isStandalone()) {
+    if (S.installEvt) b.push('Instala la app en esta tablet para poder abrirla sin conexión. <button class="linkbtn" data-act="instalar">Instalar</button>');
+    else if (isIOS()) b.push('Para abrirla sin conexión, añádela a la pantalla de inicio (botón Compartir, Añadir a pantalla de inicio) y úsala siempre desde ese icono.');
+    else b.push('Para abrirla sin conexión, instálala desde el menú del navegador (Instalar aplicación o Añadir a pantalla de inicio) y úsala siempre desde ese icono.');
+  }
+  $('#banners').innerHTML = b.map(t => `<p class="banner">${t}</p>`).join('');
+}
+
+function renderSync(){
+  const pend = S.partes.filter(p => p.estado === 'pendiente').length;
+  $('#syncCount').textContent = pend;
+  $('#syncLabel').textContent = pend === 1 ? 'parte sin subir' : 'partes sin subir';
+  const st = $('#syncStatus');
+  let text, kind = '';
+  if (S.syncing) text = S.progress;
+  else if (S.msg) { text = S.msg.text; kind = S.msg.kind || ''; }
+  else if (!pend) text = 'Todo está subido.';
+  else if (!S.online) text = 'Sin conexión. Quedan guardados aquí hasta que los subas.';
+  else if (!S.kv.codigo || !servidorOk()) text = 'Prepara la tablet para poder subirlos.';
+  else text = 'Hay conexión. Ya puedes subirlos.';
+  st.textContent = text;
+  st.className = kind;
+  const btn = $('#syncBtn');
+  btn.disabled = S.syncing || !pend || !S.online;
+  btn.textContent = S.syncing ? 'Subiendo…' : 'Subir todo';
+}
+
+function render(){
+  $('#empresa').textContent = CFG.empresa || '';
+  renderConn(); renderBanners(); renderDevice(); renderSync();
+}
+
+let toastTimer = null;
+function toast(t){
+  const el = $('#toast'); el.textContent = t; el.classList.add('show');
+  clearTimeout(toastTimer); toastTimer = setTimeout(() => el.classList.remove('show'), 2600);
+}
+
+/* ---------- eventos ---------- */
+function pick(c){ return {operario: c.operario, instalacion: c.instalacion, equipo: c.equipo, ot: c.ot}; }
+
+document.addEventListener('click', e => {
+  const el = e.target.closest('[data-new],[data-edit],[data-close],[data-act],[data-rmph],.seg button');
+  if (!el) return;
+
+  if (el.matches('.seg button')) {
+    el.parentElement.querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', b === el));
+    F.dirty = true; return;
+  }
+  if (el.dataset.new) {
+    const tipo = el.dataset.new, prefill = {};
+    if (tipo === 'checkout') {
+      const open = openCheckins();
+      if (open.length === 1) Object.assign(prefill, pick(open[0]), {checkinId: open[0].id});
+    }
+    openForm(tipo, {prefill}); return;
+  }
+  if (el.dataset.edit) {
+    const p = S.partes.find(x => x.id === el.dataset.edit);
+    if (p) openForm(p.tipo, {editId: p.id});
+    return;
+  }
+  if (el.dataset.close) {
+    const c = S.partes.find(x => x.id === el.dataset.close);
+    if (c) openForm('checkout', {prefill: Object.assign(pick(c), {checkinId: c.id})});
+    return;
+  }
+  if (el.dataset.rmph !== undefined) { F.fotos.splice(+el.dataset.rmph, 1); F.dirty = true; renderPhotos(); return; }
+  switch (el.dataset.act) {
+    case 'sync': sync(); break;
+    case 'ajustes': openSetup(); break;
+    case 'setupback':
+      if (!S.kv.codigo) { S.kv.aplazado = true; store.set('aplazado', true).catch(() => {}); }
+      closeOverlay(); break;
+    case 'setupsin': guardarSetup(true); break;
+    case 'instalar':
+      if (S.installEvt) { const ev = S.installEvt; S.installEvt = null; ev.prompt(); ev.userChoice.finally(() => renderBanners()); }
+      break;
+    case 'actualizar':
+      if (S.nuevaVersion) { S.actualizando = true; S.nuevaVersion.postMessage('actualizar'); }
+      break;
+    case 'sigclear': if (F.sig) F.sig.clear(); break;
+    case 'back':
+      if (F.dirty && !F.backArmed) {
+        F.backArmed = true; toast('Pulsa otra vez para salir sin guardar');
+        setTimeout(() => { F.backArmed = false; }, 3500);
+      } else closeOverlay();
+      break;
+    case 'del':
+      if (!F.delArmed) {
+        F.delArmed = true; el.textContent = 'Pulsa otra vez para eliminar';
+        setTimeout(() => { if (el.isConnected) { F.delArmed = false; el.textContent = 'Eliminar'; } }, 4000);
+      } else deleteCurrent();
+      break;
+    case 'clear':
+      if (el.dataset.armed !== '1') {
+        el.dataset.armed = '1'; el.textContent = 'Pulsa otra vez para confirmar';
+        setTimeout(() => { if (el.isConnected) { el.dataset.armed = ''; el.textContent = 'Quitar de la tablet los ya subidos'; } }, 4000);
+      } else clearUploaded();
+      break;
+  }
+});
+
+$('#formView').addEventListener('submit', e => { e.preventDefault(); saveForm(); });
+$('#setupView').addEventListener('submit', e => { e.preventDefault(); guardarSetup(false); });
+$('#formView').addEventListener('input', () => { F.dirty = true; });
+$('#formView').addEventListener('change', async e => {
+  F.dirty = true;
+  if (e.target.id === 'f_checkinId') prefillFromCheckin(e.target.value);
+  if (e.target.id === 'photoIn') {
+    const files = Array.from(e.target.files || []);
+    const add = $('#addph'); if (add) add.classList.add('busy');
+    for (const file of files) {
+      if (F.fotos.length >= 3) { toast('Máximo 3 fotos por incidencia'); break; }
+      try { F.fotos.push(await compress(file)); } catch (_) { toast('No se pudo leer una de las fotos'); }
+    }
+    renderPhotos();
+  }
+});
+
+window.addEventListener('online', () => { S.online = true; if (S.msg && S.msg.kind === 'err') setMsg(null); renderConn(); renderSync(); });
+window.addEventListener('offline', () => { S.online = false; renderConn(); renderSync(); });
+window.addEventListener('beforeinstallprompt', e => { e.preventDefault(); S.installEvt = e; renderBanners(); });
+window.addEventListener('appinstalled', () => { S.installEvt = null; renderBanners(); });
+
+/* ---------- instalación y actualizaciones ---------- */
+function registrarSW(){
+  if (!('serviceWorker' in navigator)) return;
+  navigator.serviceWorker.register('./sw.js').then(reg => {
+    const vigilar = w => {
+      if (!w) return;
+      w.addEventListener('statechange', () => {
+        if (w.state === 'installed' && navigator.serviceWorker.controller) { S.nuevaVersion = w; renderBanners(); }
+      });
+    };
+    if (reg.waiting && navigator.serviceWorker.controller) { S.nuevaVersion = reg.waiting; renderBanners(); }
+    reg.addEventListener('updatefound', () => vigilar(reg.installing));
+    window.addEventListener('online', () => reg.update().catch(() => {}));
+  }).catch(() => {});
+  navigator.serviceWorker.addEventListener('controllerchange', () => {
+    if (S.actualizando) { S.actualizando = false; location.reload(); }
+  });
+}
+
+/* ---------- arranque ---------- */
+async function init(){
+  S.persistent = await store.init();
+  try {
+    S.partes = (await store.all()) || [];
+    for (const k of ['operario', 'tablet', 'codigo', 'ultimoEnvio']) S.kv[k] = (await store.get(k)) || '';
+    S.kv.instalaciones = (await store.get('instalaciones')) || [];
+    S.kv.equipos = (await store.get('equipos')) || [];
+    S.kv.aplazado = !!(await store.get('aplazado'));
+  } catch (_) {}
+  try { if (navigator.storage && navigator.storage.persist) navigator.storage.persist().catch(() => {}); } catch (_) {}
+  render();
+  if ((!S.kv.codigo || !servidorOk()) && !S.kv.aplazado) openSetup();
+  registrarSW();
+}
+init();
+})();
+</script>
+</body>
+</html>
