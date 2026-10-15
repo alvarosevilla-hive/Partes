@@ -112,17 +112,12 @@ button.row:hover{background:color-mix(in srgb,var(--bg) 60%,var(--surface))}
 .empty{margin:0;color:var(--muted);padding:14px;background:var(--surface);border:1px dashed var(--line-strong);border-radius:6px}
 .note{margin:8px 0 0;font-size:.86rem;color:var(--muted)}
 
-.job{display:flex;align-items:center;gap:12px;padding:12px 14px;background:var(--surface);border:1px solid var(--line);border-left:6px solid var(--sig-blue);border-radius:6px}
-.job+.job{margin-top:8px}
-.job-main{flex:1;min-width:0;display:flex;flex-direction:column}
-.job-main strong{font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 
 .btn{appearance:none;border:0;border-radius:6px;font-family:var(--cond);font-weight:700;font-size:1.15rem;line-height:1.1;padding:10px 16px;min-height:46px;cursor:pointer;color:inherit;background:none}
 .btn:disabled{opacity:.45;cursor:not-allowed}
 .btn-sm{font-size:1.02rem;min-height:42px;padding:8px 12px}
 .btn-ghost{color:var(--ink);border:1.5px solid var(--line-strong);background:var(--surface)}
 .btn-danger{color:var(--red);border:1.5px solid currentColor}
-.btn-out{background:var(--sig-green);color:#fff;white-space:nowrap}
 .sec .btn-ghost{margin-top:10px}
 .linkbtn{appearance:none;border:0;background:none;color:inherit;font:inherit;font-weight:600;text-decoration:underline;text-underline-offset:3px;padding:4px 2px;cursor:pointer}
 
@@ -194,6 +189,54 @@ input[type=file]:focus-visible+.addph{outline:3px solid var(--focus);outline-off
 .toast.show{opacity:1}
 body.overlay-open .toast{bottom:calc(96px + env(safe-area-inset-bottom,0px))}
 @media (prefers-reduced-motion:reduce){.toast{transition:none}.tile:active{transform:none}}
+
+/* Lista de revisión (checkout de vivienda) */
+.notas{margin:16px 0 0;padding:10px 12px;border-left:5px solid var(--sig-yellow);background:var(--surface);border-radius:4px;font-size:.92rem}
+.notas p{margin:0}
+.notas p+p{margin-top:4px}
+.chk-empty{margin-top:18px}
+.prog{position:sticky;top:0;z-index:6;background:var(--bg);margin:22px -16px 0;padding:10px 16px 10px;border-bottom:1px solid var(--line)}
+.prog-txt{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-weight:600;font-size:.95rem}
+.prog-txt .bad{color:var(--red)}
+.prog-bar{height:8px;border-radius:4px;background:var(--line);margin-top:7px;overflow:hidden}
+.prog-bar i{display:block;height:100%;background:var(--sig-green);width:0;transition:width .2s}
+.chk-help{margin:10px 0 0;font-size:.86rem;color:var(--muted)}
+.est{margin-top:10px;background:var(--surface);border:1px solid var(--line);border-left:6px solid var(--line-strong);border-radius:6px}
+.est.done{border-left-color:var(--sig-green)}
+.est.has-bad{border-left-color:var(--sig-red)}
+.est-head{display:flex;align-items:center;gap:8px;padding:6px 8px 6px 4px}
+.est-toggle{flex:1;min-width:0;display:flex;align-items:center;gap:10px;flex-wrap:wrap;appearance:none;border:0;background:none;color:inherit;font:inherit;text-align:left;padding:8px;min-height:48px;cursor:pointer;border-radius:4px}
+.est-name{font-family:var(--cond);font-weight:700;font-size:1.3rem;line-height:1.1}
+.est-prog{font-size:.88rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.est-chip{font-size:.8rem;font-weight:700;padding:1px 7px;border-radius:3px}
+.est-chip.bad{background:var(--sig-red);color:#fff}
+.est-chip.ok{background:var(--sig-green);color:#fff}
+.est-chev{margin-left:auto;width:22px;height:22px;flex:none;transition:transform .15s}
+.est-toggle[aria-expanded="true"] .est-chev{transform:rotate(180deg)}
+.est-all{flex:none}
+.est-body{padding:0 14px 10px;border-top:1px solid var(--line)}
+.cat{margin:16px 0 4px;font-size:.82rem;font-weight:600;color:var(--muted)}
+.pt{padding:10px 0;border-top:1px solid var(--line)}
+.cat+.pt{border-top:0}
+.pt-row{display:flex;align-items:center;gap:12px}
+.pt-txt{flex:1;min-width:0;margin:0;line-height:1.3}
+.tri{display:flex;gap:6px;flex:none}
+.tri button{min-width:64px;min-height:46px;padding:6px 10px;border:1.5px solid var(--line-strong);background:var(--field);color:var(--ink);border-radius:6px;font:inherit;font-weight:600;font-size:.95rem;cursor:pointer}
+.tri .tri-bien[aria-pressed="true"]{background:var(--sig-green);border-color:var(--sig-green);color:#fff}
+.tri .tri-mal[aria-pressed="true"]{background:var(--sig-red);border-color:var(--sig-red);color:#fff}
+.tri .tri-nohay[aria-pressed="true"]{background:var(--muted);border-color:var(--muted);color:var(--surface)}
+.pt.is-mal .pt-txt{font-weight:600}
+.pt-mal{margin-top:6px;padding:2px 12px 12px;border-left:4px solid var(--sig-red);background:color-mix(in srgb,var(--sig-red) 6%,var(--surface));border-radius:0 6px 6px 0}
+.pt-mal .field{margin-top:12px}
+.pt .llaves{margin-top:10px;max-width:260px}
+.pt .llaves input{max-width:120px}
+input[type=number]{width:100%;font:inherit;font-size:1rem;color:var(--ink);background:var(--field);border:1.5px solid var(--line-strong);border-radius:6px;padding:11px 12px;min-height:48px}
+.chk-warn{margin:14px 0 0}
+@media (max-width:560px){
+  .pt-row{flex-direction:column;align-items:stretch;gap:8px}
+  .tri button{flex:1}
+}
+@media (prefers-reduced-motion:reduce){.prog-bar i,.est-chev{transition:none}}
 </style>
 </head>
 <body>
@@ -220,11 +263,11 @@ body.overlay-open .toast{bottom:calc(96px + env(safe-area-inset-bottom,0px))}
     <section class="tiles" aria-label="Crear un parte nuevo">
       <button class="tile tile-in" data-new="checkin">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h5v16h-5"/><path d="M3 12h11"/><path d="M10 8l4 4-4 4"/></svg>
-        <span>Check-in<small>Llego a la instalación</small></span>
+        <span>Check-in<small>Entrada</small></span>
       </button>
-      <button class="tile tile-out" data-new="checkout">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 4H5v16h5"/><path d="M10 12h11"/><path d="M17 8l4 4-4 4"/></svg>
-        <span>Check-out<small>Termino y me voy</small></span>
+      <button class="tile tile-out" data-new="checkoutViv">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/><path d="M9 15l2 2 4-4"/></svg>
+        <span>Checkout<small>Vivienda completa</small></span>
       </button>
       <button class="tile tile-inc" data-new="incidencia">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.5L22 20.5H2z"/><path d="M12 10v4.5"/><circle cx="12" cy="17.6" r=".9" fill="currentColor"/></svg>
@@ -232,15 +275,15 @@ body.overlay-open .toast{bottom:calc(96px + env(safe-area-inset-bottom,0px))}
       </button>
     </section>
 
-    <section class="sec" id="enCurso" aria-live="polite"></section>
+    <section class="sec" id="borradores"></section>
     <section class="sec" id="pendientes"></section>
     <section class="sec" id="subidos"></section>
 
     <details class="help">
       <summary>Cómo funciona sin cobertura</summary>
       <p>Abre la app siempre desde su icono en la pantalla de inicio. Se abre y funciona aunque no haya cobertura.</p>
-      <p>Cada parte se guarda en esta tablet al pulsar Guardar. Al volver a la oficina, con wifi, pulsa Subir todo y los partes pasan a la hoja de cálculo de la empresa.</p>
-      <p>Sube los partes cada día. Si se borran los datos de la app o del navegador, se perderían los que aún no estén subidos.</p>
+      <p>Cada parte se guarda en esta tablet al pulsar Guardar. Los checkouts se van guardando solos mientras los rellenas: si sales a mitad, quedan en Sin terminar para seguir luego.</p>
+      <p>Al volver a la oficina, con wifi, pulsa Subir todo y los partes pasan a la hoja de cálculo de la empresa. Sube los partes cada día: si se borran los datos de la app, se perderían los que aún no estén subidos.</p>
     </details>
   </main>
 </div>
@@ -261,6 +304,7 @@ body.overlay-open .toast{bottom:calc(96px + env(safe-area-inset-bottom,0px))}
 
 <datalist id="dl-instalaciones"></datalist>
 <datalist id="dl-equipos"></datalist>
+<datalist id="dl-viviendas"></datalist>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script>
@@ -272,6 +316,7 @@ const servidorOk = () => typeof CFG.servidor === 'string' && /^https:\/\/\S+$/.t
 
 /* ---------- utilidades ---------- */
 const $ = (s, r) => (r || document).querySelector(s);
+const $$ = (s, r) => Array.from((r || document).querySelectorAll(s));
 const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 const isImg = s => typeof s === 'string' && /^data:image\/(png|jpe?g|webp);base64,[A-Za-z0-9+/=]+$/.test(s);
@@ -288,12 +333,131 @@ const fmtFull = iso => { const d = new Date(iso); if (isNaN(d)) return ''; retur
 const byFechaDesc = (a, b) => String(b.fecha).localeCompare(String(a.fecha));
 const isStandalone = () => (window.matchMedia && matchMedia('(display-mode: standalone)').matches) || navigator.standalone === true;
 const isIOS = () => /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+const safeId = s => String(s).replace(/[^A-Za-z0-9_-]/g, '_');
 
 const TIPOS = {
-  checkin:    {nombre:'Check-in',   cls:'in'},
-  checkout:   {nombre:'Check-out',  cls:'out'},
-  incidencia: {nombre:'Incidencia', cls:'inc'}
+  checkin:     {nombre:'Check-in',   cls:'in'},
+  checkoutViv: {nombre:'Checkout',   cls:'out', largo:'Checkout vivienda'},
+  incidencia:  {nombre:'Incidencia', cls:'inc'}
 };
+
+/* ---------- plantilla: checkout de vivienda completa ---------- */
+const CHECKLIST_VIV = [
+  {id:'ent', nombre:'Entrada', items:[
+    ['puerta', 'Acceso y Entrada', 'Puerta principal sin rayaduras ni golpes'],
+    ['cerradura', 'Acceso y Entrada', 'Cerradura funciona sin atascarse'],
+    ['llaves', 'Acceso y Entrada', 'Todas las llaves disponibles (entrada, buzón, trastero, candados)', 'llaves'],
+    ['mirilla', 'Acceso y Entrada', 'Mirilla limpia y en buen estado'],
+    ['timbre', 'Acceso y Entrada', 'Timbre operativo'],
+    ['telefonillo', 'Acceso y Entrada', 'Telefonillo operativo'],
+    ['felpudo', 'Acceso y Entrada', 'Felpudo limpio y en condiciones'],
+    ['cuadro', 'Iluminación y Electricidad', 'Cuadro eléctrico: diferenciales testados']
+  ]},
+  {id:'hab', nombre:'Habitación', repetir:'habitaciones', items:[
+    ['pintura', 'Paredes, Techos y Suelos', 'Pintura uniforme, sin desconchones'],
+    ['techos', 'Paredes, Techos y Suelos', 'Techos sin goteras, manchas o moho'],
+    ['suelo', 'Paredes, Techos y Suelos', 'Suelo limpio, sin rayones profundos ni baldosas sueltas'],
+    ['rodapies', 'Paredes, Techos y Suelos', 'Rodapiés completos y fijados'],
+    ['alfombras', 'Paredes, Techos y Suelos', 'Alfombras limpias y sin manchas'],
+    ['cristales', 'Ventanas y Persianas', 'Cristales sin roturas ni fisuras'],
+    ['ventanas', 'Ventanas y Persianas', 'Ventanas cierran herméticamente'],
+    ['persiana', 'Ventanas y Persianas', 'Persiana baja y sube correctamente'],
+    ['cintas', 'Ventanas y Persianas', 'Cintas o manivelas sin roturas'],
+    ['bombillas', 'Iluminación y Electricidad', 'Todas las bombillas en funcionamiento'],
+    ['interruptores', 'Iluminación y Electricidad', 'Interruptores firmes'],
+    ['tomas', 'Iluminación y Electricidad', 'Tomas de corriente sujetas y funcionales'],
+    ['lamparas', 'Iluminación y Electricidad', 'Lámparas de techo, mesilla y escritorio en buen estado y funcionando'],
+    ['colchon', 'Mobiliario', 'Colchón limpio, sin manchas ni deformaciones'],
+    ['almohada', 'Mobiliario', 'Almohada en buen estado'],
+    ['ropacama', 'Mobiliario', 'Ropa de cama limpia y completa'],
+    ['mesilla', 'Mobiliario', 'Mesilla de noche firme'],
+    ['armario', 'Mobiliario', 'Armario completo y funcional'],
+    ['sillas', 'Mobiliario', 'Sillas firmes, sin cojear'],
+    ['escritorio', 'Mobiliario', 'Escritorio limpio y sin rayaduras graves'],
+    ['aire', 'Electrodomésticos', 'Aire acondicionado caliente/frío según estación']
+  ]},
+  {id:'bano', nombre:'Baño', repetir:'banos', items:[
+    ['presion', 'Fontanería y Agua', 'Presión de agua correcta en todos los puntos'],
+    ['caliente', 'Fontanería y Agua', 'Agua caliente disponible'],
+    ['ducha', 'Fontanería y Agua', 'Ducha sin fugas, rociador limpio (sin cal)'],
+    ['wc', 'Fontanería y Agua', 'WC descarga correctamente, no pierde agua'],
+    ['lavaboobs', 'Fontanería y Agua', 'Lavabo sin obstrucciones'],
+    ['desagues', 'Fontanería y Agua', 'Desagües sin malos olores'],
+    ['inodoro', 'Baño', 'Inodoro limpio, con escobilla en buen estado'],
+    ['lavabolimpio', 'Baño', 'Lavabo sin manchas ni restos'],
+    ['espejo', 'Baño', 'Espejo sin salpicaduras'],
+    ['plato', 'Baño', 'Plato de ducha/bañera sin fisuras y cazoleta bien fija'],
+    ['mampara', 'Baño', 'Cortina/mampara limpia y sin moho'],
+    ['juntas', 'Baño', 'Juntas de silicona sin ennegrecimiento'],
+    ['extractor', 'Baño', 'Extractor de aire funcionando'],
+    ['accesorios', 'Baño', 'Accesorios completos (toallero, portarrollos)'],
+    ['bombillas', 'Electricidad', 'Bombillas funcionan']
+  ]},
+  {id:'coc', nombre:'Cocina', items:[
+    ['estanterias', 'Mobiliario', 'Estanterías sin polvo ni suciedad'],
+    ['frigorifico', 'Electrodomésticos', 'Frigorífico frío, limpio y sin olores'],
+    ['congelador', 'Electrodomésticos', 'Congelador sin exceso de escarcha'],
+    ['microondas', 'Electrodomésticos', 'Microondas funcionando, limpio, sin grasa'],
+    ['horno', 'Electrodomésticos', 'Horno limpio, resistencias correctas, limpio y sin quemaduras en horno y bandejas'],
+    ['vitro', 'Electrodomésticos', 'Vitrocerámica/placa calienta todas las zonas'],
+    ['campana', 'Electrodomésticos', 'Campana extractora funcionando y en buen estado'],
+    ['lavadora', 'Electrodomésticos', 'Lavadora limpia, sin restos ni moho'],
+    ['lavavajillas', 'Electrodomésticos', 'Lavavajillas limpio y filtros en buen estado'],
+    ['encimera', 'Cocina y Utensilios', 'Encimera limpia y sin daños'],
+    ['fregadero', 'Cocina y Utensilios', 'Fregadero sin atascos'],
+    ['cajones', 'Cocina y Utensilios', 'Cajones y armarios funcionales y limpios'],
+    ['menaje', 'Cocina y Utensilios', 'Menaje completo (platos, vasos, cubiertos)'],
+    ['sartenes', 'Cocina y Utensilios', 'Sartenes y ollas limpias y en buen estado'],
+    ['utensilios', 'Cocina y Utensilios', 'Utensilios básicos (cuchillos, espátulas, etc.). Revisar inventario'],
+    ['basura', 'Cocina y Utensilios', 'Cubo de basura limpio y con tapa']
+  ]},
+  {id:'sal', nombre:'Salón', items:[
+    ['tv', 'Electrodomésticos', 'Televisor en buen estado, con mando y pilas'],
+    ['aire', 'Electrodomésticos', 'Aire acondicionado en funcionamiento'],
+    ['router', 'Electrodomésticos', 'Router encendido, WiFi estable'],
+    ['sillas', 'Mobiliario', 'Sillas firmes, sin cojear'],
+    ['mesa', 'Mobiliario', 'Mesa de comedor sin daños ni manchas'],
+    ['sofa', 'Mobiliario', 'Sofá limpio, sin manchas ni roturas'],
+    ['muebletv', 'Mobiliario', 'Mueble de TV sin manchas ni roturas'],
+    ['mobiliario', 'Mobiliario', 'Mobiliario en buen estado sin manchas'],
+    ['cuadros', 'Mobiliario', 'Cuadros colgados, en buen estado y con láminas'],
+    ['alfombras', 'Mobiliario', 'Alfombras limpias y en buen estado'],
+    ['cojines', 'Mobiliario', 'Cojines limpios y en buen estado']
+  ]},
+  {id:'gen', nombre:'General', items:[
+    ['termo', 'Fontanería y Agua', 'Termo/caldera sin fugas y con presión adecuada'],
+    ['suelos', 'Limpieza General', 'Suelos aspirados y fregados'],
+    ['polvo', 'Limpieza General', 'Polvo retirado de superficies y muebles'],
+    ['cristales', 'Limpieza General', 'Cristales y espejos limpios'],
+    ['puertas', 'Limpieza General', 'Puertas y manillas limpias'],
+    ['enchufes', 'Limpieza General', 'Interruptores y enchufes limpios'],
+    ['ventanas', 'Limpieza General', 'Ventanas sin huellas ni suciedad'],
+    ['humedad', 'Mantenimiento Preventivo', 'Revisar humedad en rincones y armarios'],
+    ['moho', 'Mantenimiento Preventivo', 'Revisar moho en techos o juntas de baño'],
+    ['silicona', 'Mantenimiento Preventivo', 'Revisar juntas de silicona en cocina y baño'],
+    ['bisagras', 'Mantenimiento Preventivo', 'Engrasar bisagras que chirrían'],
+    ['bombillas', 'Mantenimiento Preventivo', 'Sustituir bombillas fundidas']
+  ]}
+];
+
+function instancias(nh, nb){
+  const out = [];
+  for (const sec of CHECKLIST_VIV) {
+    const n = sec.repetir === 'habitaciones' ? nh : sec.repetir === 'banos' ? nb : 0;
+    if (sec.repetir) for (let i = 1; i <= n; i++) out.push({id: sec.id + i, nombre: sec.nombre + ' ' + i, sec});
+    else out.push({id: sec.id, nombre: sec.nombre, sec});
+  }
+  return out;
+}
+function resumenRev(rev, insts){
+  let total = 0, bien = 0, mal = 0, nohay = 0;
+  insts.forEach(i => i.sec.items.forEach(it => {
+    total++;
+    const r = (rev || {})[i.id + ':' + it[0]];
+    if (r && r.e === 'bien') bien++; else if (r && r.e === 'mal') mal++; else if (r && r.e === 'nohay') nohay++;
+  }));
+  return {total, bien, mal, nohay, marcados: bien + mal + nohay, sinMarcar: total - bien - mal - nohay};
+}
 
 /* ---------- almacenamiento en la tablet (IndexedDB) ---------- */
 const store = (() => {
@@ -335,7 +499,7 @@ const store = (() => {
 /* ---------- estado ---------- */
 const S = {
   partes: [],
-  kv: {operario:'', instalaciones:[], equipos:[], tablet:'', codigo:'', aplazado:false, ultimoEnvio:''},
+  kv: {operario:'', instalaciones:[], equipos:[], viviendas:[], tablet:'', codigo:'', aplazado:false, ultimoEnvio:''},
   persistent: true,
   online: navigator.onLine !== false,
   syncing: false, progress: '', msg: null,
@@ -352,21 +516,26 @@ const COMMON = [
   {k:'ot', t:'text', label:'Orden de trabajo', opt:true}
 ];
 const FORMS = {
-  checkin: {desc:'Llegada a la instalación', fields:[
+  checkin: {desc:'Entrada', fields:[
     ...COMMON,
     {k:'tipoTrabajo', t:'seg', label:'Tipo de trabajo', opts:['Preventivo','Correctivo','Inspección','Otro'], def:'Preventivo'},
     {k:'observaciones', t:'area', label:'Observaciones', opt:true}
   ]},
-  checkout: {desc:'Salida y trabajo realizado', fields:[
-    {k:'checkinId', t:'link', label:'Check-in que cierras', opt:true},
-    ...COMMON,
-    {k:'trabajoRealizado', t:'area', label:'Trabajo realizado', req:true, rows:4},
-    {k:'materiales', t:'area', label:'Materiales y repuestos', opt:true, rows:2},
-    {k:'estadoEquipo', t:'seg', label:'Estado del equipo al salir', opts:['Operativo','Con reservas','Fuera de servicio'], def:'Operativo'},
-    {k:'observaciones', t:'area', label:'Observaciones', opt:true, rows:2},
-    {k:'firmante', t:'text', label:'Nombre de quien firma', opt:true},
-    {k:'firma', t:'sig', label:'Firma de conformidad', opt:true}
-  ]},
+  checkoutViv: {desc:'Revisión de salida de la vivienda', borrador:true,
+    notas:[
+      'Si algo está mal, indica dónde está el daño y qué medidas o actuaciones hacen falta, y añade fotos.',
+      'Retira la ropa de cama y llévala a la oficina.'
+    ],
+    fields:[
+      {k:'operario', t:'text', label:'Técnico', req:true},
+      {k:'fecha', t:'datetime', label:'Fecha y hora', req:true},
+      {k:'vivienda', t:'text', label:'Vivienda', req:true, list:'viviendas'},
+      {k:'habitaciones', t:'seg', label:'Habitaciones', opts:['1','2','3','4'], req:true},
+      {k:'banos', t:'seg', label:'Baños', opts:['1','2','3','4'], req:true},
+      {k:'rev', t:'checklist'},
+      {k:'ropaRetirada', t:'toggle', label:'Ropa de cama retirada para llevar a la oficina'},
+      {k:'observaciones', t:'area', label:'Observaciones generales', opt:true}
+    ]},
   incidencia: {desc:'Avería o problema detectado', fields:[
     ...COMMON,
     {k:'categoria', t:'select', label:'Tipo de incidencia', req:true, placeholder:'Elige el tipo', opts:['Eléctrica','Mecánica','Fontanería','Climatización','Obra y estructura','Seguridad','Otra']},
@@ -378,12 +547,7 @@ const FORMS = {
 };
 
 const F = {}; // formulario abierto
-
-function openCheckins(exceptCheckoutId){
-  return S.partes
-    .filter(p => p.tipo === 'checkin' && (!p.cerradoPor || p.cerradoPor === exceptCheckoutId))
-    .sort(byFechaDesc);
-}
+let draftTimer = null;
 
 function fieldHTML(f, v){
   const id = 'f_' + f.k;
@@ -403,19 +567,15 @@ function fieldHTML(f, v){
     case 'select':
       return wrap(`${lab}<select id="${id}" ${desc}><option value="">${esc(f.placeholder || 'Elige una opción')}</option>${f.opts.map(o => `<option ${o === v ? 'selected' : ''}>${esc(o)}</option>`).join('')}</select>${hint}${err}`);
     case 'seg': {
-      const cur = v || f.def;
-      return wrap(`<span class="lbl" id="${id}-l">${esc(f.label)}</span><div class="seg" role="group" aria-labelledby="${id}-l">${f.opts.map(o => `<button type="button" data-val="${esc(o)}" aria-pressed="${o === cur}">${esc(o)}</button>`).join('')}</div>${hint}`);
+      const cur = v != null && v !== '' ? String(v) : f.def;
+      return wrap(`<span class="lbl" id="${id}-l">${esc(f.label)}</span><div class="seg" role="group" aria-labelledby="${id}-l">${f.opts.map(o => `<button type="button" data-val="${esc(o)}" aria-pressed="${o === cur}">${esc(o)}</button>`).join('')}</div>${hint}${err}`);
     }
     case 'toggle':
       return wrap(`<label class="toggle"><input type="checkbox" id="${id}" ${v ? 'checked' : ''}><span>${esc(f.label)}</span></label>`);
-    case 'link': {
-      const list = openCheckins(F.editing);
-      return wrap(`${lab}<select id="${id}"><option value="">Sin check-in previo</option>${list.map(c => `<option value="${esc(c.id)}" ${c.id === v ? 'selected' : ''}>${esc(c.instalacion)}${c.equipo ? ', ' + esc(c.equipo) : ''} (desde ${esc(fmt(c.fecha))})</option>`).join('')}</select><p class="hint">Al elegirlo se rellenan los datos y se calcula el tiempo de trabajo.</p>`);
-    }
     case 'photos':
-      return wrap(`<span class="lbl" id="${id}-l">${esc(f.label)}${opt}</span><div class="photos" id="photoBox" aria-labelledby="${id}-l"></div>${hint}`);
-    case 'sig':
-      return wrap(`<span class="lbl" id="${id}-l">${esc(f.label)}${opt}</span><div class="sig" role="img" aria-labelledby="${id}-l"><canvas></canvas><div class="sig-line"></div><div class="sig-ph">Firma aquí con el dedo</div></div><div class="sig-tools"><button type="button" class="linkbtn" data-act="sigclear">Borrar firma</button></div>`);
+      return wrap(`<span class="lbl" id="${id}-l">${esc(f.label)}${opt}</span><div class="photos" data-phbox="main" aria-labelledby="${id}-l"></div>${hint}`);
+    case 'checklist':
+      return `<div id="chk"></div>`;
   }
   return '';
 }
@@ -433,6 +593,8 @@ function showOverlay(el){
   const h = el.querySelector('h2'); if (h) h.focus({preventScroll:true});
 }
 function closeOverlay(){
+  clearTimeout(draftTimer); draftTimer = null;
+  for (const k of Object.keys(F)) delete F[k];
   for (const id of ['formView', 'setupView']) { const v = document.getElementById(id); v.hidden = true; v.innerHTML = ''; }
   $('#shell').hidden = false;
   $('#syncbar').hidden = false;
@@ -442,39 +604,188 @@ function closeOverlay(){
 }
 
 const BACK_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>';
+const CHEV_SVG = '<svg class="est-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>';
 
 function openForm(tipo, opts){
   opts = opts || {};
   const spec = FORMS[tipo];
   const base = opts.editId ? S.partes.find(p => p.id === opts.editId) : null;
+  clearTimeout(draftTimer); draftTimer = null;
   for (const k of Object.keys(F)) delete F[k];
-  Object.assign(F, {tipo, editing: base ? base.id : null, dirty:false, backArmed:false, delArmed:false});
-  const vals = Object.assign({operario: S.kv.operario, fecha: new Date().toISOString()}, opts.prefill || {}, base || {});
+  Object.assign(F, {
+    tipo, editing: base ? base.id : null, dirty:false, backArmed:false, delArmed:false, forceSave:false, saving:false,
+    borradorOk: !!spec.borrador && (!base || base.estado === 'borrador'),
+    open: new Set()
+  });
+  const vals = Object.assign({operario: S.kv.operario, fecha: new Date().toISOString()}, base || {});
   F.fotos = Array.isArray(vals.fotos) ? vals.fotos.slice() : [];
+  F.rev = JSON.parse(JSON.stringify(vals.rev || {}));
+  F.llaves = vals.llaves != null ? String(vals.llaves) : '';
   const t = TIPOS[tipo];
 
   $('#dl-instalaciones').innerHTML = S.kv.instalaciones.map(x => `<option value="${esc(x)}"></option>`).join('');
   $('#dl-equipos').innerHTML = S.kv.equipos.map(x => `<option value="${esc(x)}"></option>`).join('');
+  $('#dl-viviendas').innerHTML = S.kv.viviendas.map(x => `<option value="${esc(x)}"></option>`).join('');
 
+  const titulo = t.largo || t.nombre;
   const fv = $('#formView');
   fv.innerHTML = `
     <div class="fhead fhead-${t.cls}">
-      <button type="button" class="iconbtn back" data-act="back" aria-label="Volver sin guardar">${BACK_SVG}</button>
-      <div><h2 tabindex="-1">${base ? 'Editar ' + esc(t.nombre.toLowerCase()) : esc(t.nombre)}</h2><p>${esc(spec.desc)}</p></div>
+      <button type="button" class="iconbtn back" data-act="back" aria-label="${F.borradorOk ? 'Volver (se guarda como borrador)' : 'Volver sin guardar'}">${BACK_SVG}</button>
+      <div><h2 tabindex="-1">${base && base.estado !== 'borrador' ? 'Editar ' + esc(titulo.toLowerCase()) : esc(titulo)}</h2><p>${esc(spec.desc)}${base && base.estado === 'borrador' ? ', sin terminar' : ''}</p></div>
     </div>
+    ${spec.notas ? `<div class="notas">${spec.notas.map(n => `<p>${esc(n)}</p>`).join('')}</div>` : ''}
     <form id="parteForm" novalidate>
       ${spec.fields.map(f => fieldHTML(f, vals[f.k])).join('')}
+      <p class="banner chk-warn" id="chkWarn" hidden></p>
       <div class="ffoot">
         ${base ? '<button type="button" class="btn btn-danger" data-act="del">Eliminar</button>' : ''}
-        <button type="submit" class="btn btn-save save-${t.cls}">Guardar en la tablet</button>
+        <button type="submit" class="btn btn-save save-${t.cls}" id="saveBtn">Guardar en la tablet</button>
       </div>
     </form>`;
   showOverlay(fv);
-  const sigWrap = fv.querySelector('.sig');
-  F.sig = sigWrap ? setupSig(sigWrap, vals.firma) : null;
-  renderPhotos();
+  renderPhotoBox('main');
+  if (tipo === 'checkoutViv') renderChecklist(true);
 }
 
+/* ---------- lista de revisión ---------- */
+function segVal(k){
+  const b = $(`#formView .field[data-k="${k}"] [aria-pressed="true"]`);
+  return b ? b.dataset.val : '';
+}
+function revOf(key){ return F.rev[key] || (F.rev[key] = {e:'', d:'', a:'', f:[]}); }
+
+function renderChecklist(abrirPrimera){
+  const box = $('#chk'); if (!box) return;
+  const nh = +segVal('habitaciones'), nb = +segVal('banos');
+  if (!nh || !nb) {
+    F.insts = [];
+    box.innerHTML = '<p class="empty chk-empty">Elige cuántas habitaciones y baños tiene la vivienda para ver los puntos de revisión.</p>';
+    return;
+  }
+  F.insts = instancias(nh, nb);
+  if (abrirPrimera && !F.open.size) {
+    const pend = F.insts.find(i => i.sec.items.some(it => !(F.rev[i.id + ':' + it[0]] || {}).e));
+    F.open.add((pend || F.insts[0]).id);
+  }
+  box.innerHTML = `
+    <div class="prog" id="prog"><div class="prog-txt"><span id="progTxt"></span><span class="bad" id="progBad"></span></div><div class="prog-bar"><i id="progBar"></i></div></div>
+    <p class="chk-help">Marca cada punto como Bien, Mal o No hay. «Todo bien» marca como Bien los puntos que falten de esa estancia.</p>
+    ${F.insts.map(instHTML).join('')}`;
+  F.insts.forEach(i => updateInst(i.id));
+  updateProgress();
+}
+
+function instHTML(inst){
+  const open = F.open.has(inst.id);
+  let html = '', lastCat = null;
+  for (const it of inst.sec.items) {
+    if (it[1] !== lastCat) { html += `<h4 class="cat">${esc(it[1])}</h4>`; lastCat = it[1]; }
+    html += itemHTML(inst, it);
+  }
+  return `<section class="est" data-inst="${inst.id}">
+    <div class="est-head">
+      <button type="button" class="est-toggle" aria-expanded="${open}" aria-controls="eb_${inst.id}">
+        <span class="est-name">${esc(inst.nombre)}</span><span class="est-prog"></span><span class="est-chip" hidden></span>${CHEV_SVG}
+      </button>
+      <button type="button" class="btn btn-ghost btn-sm est-all" data-all="${inst.id}">Todo bien</button>
+    </div>
+    <div class="est-body" id="eb_${inst.id}" ${open ? '' : 'hidden'}>${html}</div>
+  </section>`;
+}
+
+function itemHTML(inst, it){
+  const key = inst.id + ':' + it[0], kid = safeId(key);
+  const r = F.rev[key] || {};
+  const llaves = it[3] === 'llaves'
+    ? `<div class="field llaves" data-k="llaves"><label class="lbl" for="f_llaves">¿Cuántas llaves se recogen?</label><input type="number" id="f_llaves" inputmode="numeric" min="0" max="99" step="1" value="${esc(F.llaves)}" aria-describedby="f_llaves-e"><p class="err" id="f_llaves-e"></p></div>`
+    : '';
+  return `<div class="pt${r.e === 'mal' ? ' is-mal' : ''}" data-key="${key}">
+    <div class="pt-row">
+      <p class="pt-txt" id="t_${kid}">${esc(it[2])}</p>
+      <div class="tri" role="group" aria-labelledby="t_${kid}">
+        <button type="button" class="tri-bien" data-st="bien" aria-pressed="${r.e === 'bien'}">Bien</button>
+        <button type="button" class="tri-mal" data-st="mal" aria-pressed="${r.e === 'mal'}">Mal</button>
+        <button type="button" class="tri-nohay" data-st="nohay" aria-pressed="${r.e === 'nohay'}">No hay</button>
+      </div>
+    </div>
+    ${llaves}
+    <div class="pt-mal" ${r.e === 'mal' ? '' : 'hidden'}>
+      <div class="field"><label class="lbl" for="d_${kid}">Dónde está el daño</label><input type="text" id="d_${kid}" data-fld="d" value="${esc(r.d)}" autocomplete="off" aria-describedby="d_${kid}-e"><p class="err" id="d_${kid}-e"></p></div>
+      <div class="field"><label class="lbl" for="a_${kid}">Medidas o actuación necesaria <span class="opt">(opcional)</span></label><input type="text" id="a_${kid}" data-fld="a" value="${esc(r.a)}" autocomplete="off"></div>
+      <div class="field"><span class="lbl">Fotos <span class="opt">(hasta 3)</span></span><div class="photos" data-phbox="${key}"></div></div>
+    </div>
+  </div>`;
+}
+
+function setEstado(key, st){
+  const r = revOf(key);
+  r.e = r.e === st ? '' : st;
+  const el = $(`#formView .pt[data-key="${key}"]`);
+  if (el) {
+    el.querySelectorAll('.tri button').forEach(b => b.setAttribute('aria-pressed', b.dataset.st === r.e));
+    el.classList.toggle('is-mal', r.e === 'mal');
+    const panel = el.querySelector('.pt-mal');
+    panel.hidden = r.e !== 'mal';
+    if (r.e === 'mal') renderPhotoBox(key);
+  }
+  updateInst(key.split(':')[0]);
+  updateProgress();
+  resetForce();
+}
+
+function todoBien(instId){
+  const inst = (F.insts || []).find(i => i.id === instId); if (!inst) return;
+  let n = 0;
+  inst.sec.items.forEach(it => {
+    const key = instId + ':' + it[0];
+    if (!(F.rev[key] || {}).e) { revOf(key).e = 'bien'; n++;
+      const el = $(`#formView .pt[data-key="${key}"]`);
+      if (el) el.querySelectorAll('.tri button').forEach(b => b.setAttribute('aria-pressed', b.dataset.st === 'bien'));
+    }
+  });
+  updateInst(instId); updateProgress(); resetForce();
+  toast(n ? `${n} puntos marcados como Bien` : 'No quedaba ningún punto por marcar');
+}
+
+function updateInst(instId){
+  const inst = (F.insts || []).find(i => i.id === instId); if (!inst) return;
+  const r = resumenRev(F.rev, [inst]);
+  const sec = $(`#formView .est[data-inst="${instId}"]`); if (!sec) return;
+  sec.querySelector('.est-prog').textContent = `${r.marcados} de ${r.total}`;
+  const chip = sec.querySelector('.est-chip');
+  if (r.mal) { chip.hidden = false; chip.className = 'est-chip bad'; chip.textContent = r.mal === 1 ? '1 mal' : `${r.mal} mal`; }
+  else if (!r.sinMarcar) { chip.hidden = false; chip.className = 'est-chip ok'; chip.textContent = 'Completa'; }
+  else chip.hidden = true;
+  sec.classList.toggle('done', !r.sinMarcar && !r.mal);
+  sec.classList.toggle('has-bad', r.mal > 0);
+}
+
+function updateProgress(){
+  if (!$('#progTxt')) return;
+  const r = resumenRev(F.rev, F.insts || []);
+  $('#progTxt').textContent = `${r.marcados} de ${r.total} puntos revisados`;
+  $('#progBad').textContent = r.mal ? (r.mal === 1 ? '1 con problema' : `${r.mal} con problema`) : '';
+  $('#progBar').style.width = (r.total ? Math.round(r.marcados / r.total * 100) : 0) + '%';
+}
+
+function toggleInst(instId, abrir){
+  const sec = $(`#formView .est[data-inst="${instId}"]`); if (!sec) return;
+  const btn = sec.querySelector('.est-toggle'), body = sec.querySelector('.est-body');
+  const open = abrir != null ? abrir : btn.getAttribute('aria-expanded') !== 'true';
+  btn.setAttribute('aria-expanded', open); body.hidden = !open;
+  if (open) { F.open.add(instId); body.querySelectorAll('.pt.is-mal').forEach(p => renderPhotoBox(p.dataset.key)); }
+  else F.open.delete(instId);
+}
+
+function resetForce(){
+  if (!F.forceSave) return;
+  F.forceSave = false;
+  const w = $('#chkWarn'); if (w) w.hidden = true;
+  const b = $('#saveBtn'); if (b) b.textContent = 'Guardar en la tablet';
+}
+
+/* ---------- recoger y guardar ---------- */
 function collect(){
   const spec = FORMS[F.tipo], out = {}, fv = $('#formView');
   for (const f of spec.fields) {
@@ -482,14 +793,26 @@ function collect(){
     switch (f.t) {
       case 'text': case 'area': case 'select': out[f.k] = el ? el.value.trim() : ''; break;
       case 'datetime': { const d = el && el.value ? new Date(el.value) : null; out[f.k] = d && !isNaN(d) ? d.toISOString() : ''; break; }
-      case 'seg': { const b = $(`.field[data-k="${f.k}"] [aria-pressed="true"]`, fv); out[f.k] = b ? b.dataset.val : f.def; break; }
+      case 'seg': out[f.k] = segVal(f.k) || f.def || ''; break;
       case 'toggle': out[f.k] = !!(el && el.checked); break;
-      case 'link': out[f.k] = el && el.value ? el.value : null; break;
       case 'photos': out[f.k] = F.fotos.slice(); break;
-      case 'sig': out[f.k] = F.sig ? F.sig.value() : null; break;
+      case 'checklist': {
+        const keep = {};
+        (F.insts || []).forEach(i => i.sec.items.forEach(it => { const k = i.id + ':' + it[0]; if (F.rev[k]) keep[k] = F.rev[k]; }));
+        // si aún no se eligió nº de habitaciones/baños, conservar todo
+        out.rev = (F.insts && F.insts.length) ? keep : F.rev;
+        out.llaves = F.llaves === '' ? '' : Math.max(0, Math.round(+F.llaves));
+        break;
+      }
     }
   }
   return out;
+}
+
+function markErr(fieldEl, msg){
+  fieldEl.classList.add('has-err');
+  const e = fieldEl.querySelector('.err'); if (e) e.textContent = msg;
+  const inp = fieldEl.querySelector('input,textarea,select'); if (inp) inp.setAttribute('aria-invalid', 'true');
 }
 
 async function saveForm(){
@@ -499,134 +822,115 @@ async function saveForm(){
   fv.querySelectorAll('.field').forEach(el => {
     el.classList.remove('has-err');
     const e = el.querySelector('.err'); if (e) e.textContent = '';
-    const i = el.querySelector('[aria-invalid]'); if (i) i.removeAttribute('aria-invalid');
+    el.querySelectorAll('[aria-invalid]').forEach(i => i.removeAttribute('aria-invalid'));
   });
   for (const f of spec.fields) {
     if (f.req && !vals[f.k]) {
       const el = $(`.field[data-k="${f.k}"]`, fv);
-      el.classList.add('has-err');
-      el.querySelector('.err').textContent = f.t === 'datetime' ? 'Indica la fecha y la hora.' : 'Falta este dato.';
-      const inp = el.querySelector('input,textarea,select'); if (inp) inp.setAttribute('aria-invalid', 'true');
+      markErr(el, f.t === 'datetime' ? 'Indica la fecha y la hora.' : f.t === 'seg' ? 'Elige una opción.' : 'Falta este dato.');
       first = first || el;
+    }
+  }
+  if (F.tipo === 'checkoutViv' && F.insts && F.insts.length) {
+    const llavesEl = $('.field[data-k="llaves"]', fv);
+    if (vals.llaves === '' && llavesEl) { toggleInst('ent', true); markErr(llavesEl, 'Indica cuántas llaves se recogen (0 si ninguna).'); first = first || llavesEl; }
+    for (const inst of F.insts) for (const it of inst.sec.items) {
+      const key = inst.id + ':' + it[0], r = F.rev[key];
+      if (r && r.e === 'mal' && !String(r.d || '').trim()) {
+        toggleInst(inst.id, true);
+        const fld = $(`.pt[data-key="${key}"] .pt-mal .field`, fv);
+        markErr(fld, 'Indica dónde está el daño.');
+        first = first || fld;
+      }
     }
   }
   if (first) {
     first.scrollIntoView({block:'center'});
-    const inp = first.querySelector('input,textarea,select'); if (inp) inp.focus({preventScroll:true});
+    const inp = first.querySelector('input,textarea,select,button'); if (inp) inp.focus({preventScroll:true});
     toast('Faltan datos obligatorios');
     return;
   }
+  if (F.tipo === 'checkoutViv' && !F.forceSave) {
+    const res = resumenRev(F.rev, F.insts);
+    if (res.sinMarcar) {
+      const faltan = F.insts.filter(i => i.sec.items.some(it => !(F.rev[i.id + ':' + it[0]] || {}).e));
+      F.forceSave = true;
+      const w = $('#chkWarn');
+      w.textContent = `Quedan ${res.sinMarcar} puntos sin marcar en: ${faltan.map(i => i.nombre).join(', ')}. Puedes completarlos o pulsar otra vez para guardar igualmente.`;
+      w.hidden = false;
+      $('#saveBtn').textContent = 'Guardar igualmente';
+      toggleInst(faltan[0].id, true);
+      const pt = faltan[0].sec.items.find(it => !(F.rev[faltan[0].id + ':' + it[0]] || {}).e);
+      const el = $(`.pt[data-key="${faltan[0].id}:${pt[0]}"]`, fv);
+      if (el) el.scrollIntoView({block:'center'});
+      return;
+    }
+  }
 
+  F.saving = true;
+  clearTimeout(draftTimer); draftTimer = null;
   const now = new Date().toISOString();
   const base = F.editing ? S.partes.find(p => p.id === F.editing) : null;
-  const p = Object.assign({}, base || {id:newId(), tipo:F.tipo, guardadoEn:now, estado:'pendiente'}, vals);
+  const p = Object.assign({}, base || {id:newId(), tipo:F.tipo, guardadoEn:now}, vals, {estado:'pendiente'});
   if (base) p.editadoEn = now;
-
-  try {
-    if (p.tipo === 'checkout') {
-      const prev = base ? base.checkinId : null;
-      if (prev && prev !== p.checkinId) {
-        const c = S.partes.find(x => x.id === prev);
-        if (c && c.cerradoPor === p.id) { c.cerradoPor = null; await store.put(c); }
-      }
-      p.duracionMin = null;
-      if (p.checkinId) {
-        const c = S.partes.find(x => x.id === p.checkinId);
-        if (c) {
-          c.cerradoPor = p.id; await store.put(c);
-          const m = Math.round((new Date(p.fecha) - new Date(c.fecha)) / 60000);
-          p.duracionMin = m >= 0 ? m : null;
-        }
-      }
-    }
-    await store.put(p);
-  } catch (e) {
-    toast('No se pudo guardar en la tablet. Inténtalo de nuevo.');
-    return;
-  }
+  try { await store.put(p); }
+  catch (e) { F.saving = false; toast('No se pudo guardar en la tablet. Inténtalo de nuevo.'); return; }
 
   const i = S.partes.findIndex(x => x.id === p.id);
   if (i >= 0) S.partes[i] = p; else S.partes.push(p);
   remember(p);
+  const nuevo = !base || base.estado === 'borrador';
   closeOverlay();
-  toast(base ? 'Cambios guardados en la tablet' : 'Parte guardado en la tablet');
+  toast(nuevo ? 'Parte guardado en la tablet' : 'Cambios guardados en la tablet');
+}
+
+function markDirty(){
+  F.dirty = true;
+  if (!F.borradorOk) return;
+  clearTimeout(draftTimer);
+  draftTimer = setTimeout(saveDraft, 1200);
+}
+async function saveDraft(){
+  draftTimer = null;
+  if (!F.tipo || !F.borradorOk || F.saving) return;
+  const vals = collect();
+  const base = F.editing ? S.partes.find(p => p.id === F.editing) : null;
+  const now = new Date().toISOString();
+  const p = Object.assign({}, base || {id:newId(), tipo:F.tipo, guardadoEn:now}, vals, {estado:'borrador', editadoEn:now});
+  try { await store.put(p); } catch (_) { return; }
+  if (F.saving) return;
+  const i = S.partes.findIndex(x => x.id === p.id);
+  if (i >= 0) S.partes[i] = p; else S.partes.push(p);
+  F.editing = p.id;
+  if (p.vivienda) remember({vivienda: p.vivienda});
 }
 
 async function deleteCurrent(){
-  const p = S.partes.find(x => x.id === F.editing);
-  if (!p) { closeOverlay(); return; }
-  try {
-    if (p.tipo === 'checkout' && p.checkinId) {
-      const c = S.partes.find(x => x.id === p.checkinId);
-      if (c && c.cerradoPor === p.id) { c.cerradoPor = null; await store.put(c); }
-    }
-    await store.del(p.id);
-  } catch (e) { toast('No se pudo eliminar. Inténtalo de nuevo.'); return; }
-  S.partes = S.partes.filter(x => x.id !== p.id);
+  clearTimeout(draftTimer); draftTimer = null; F.saving = true;
+  const id = F.editing;
+  if (id) {
+    try { await store.del(id); } catch (e) { F.saving = false; toast('No se pudo eliminar. Inténtalo de nuevo.'); return; }
+    S.partes = S.partes.filter(x => x.id !== id);
+  }
   closeOverlay();
   toast('Parte eliminado');
 }
 
 function remember(p){
-  const add = (list, v) => v ? [v, ...list.filter(x => x.toLowerCase() !== v.toLowerCase())].slice(0, 60) : list;
-  S.kv.operario = p.operario || S.kv.operario;
-  S.kv.instalaciones = add(S.kv.instalaciones, p.instalacion);
-  S.kv.equipos = add(S.kv.equipos, p.equipo);
-  store.set('operario', S.kv.operario).catch(() => {});
-  store.set('instalaciones', S.kv.instalaciones).catch(() => {});
-  store.set('equipos', S.kv.equipos).catch(() => {});
-}
-
-function prefillFromCheckin(id){
-  const c = S.partes.find(p => p.id === id); if (!c) return;
-  for (const k of ['operario', 'instalacion', 'equipo', 'ot']) {
-    const el = $('#f_' + k); if (el && c[k]) el.value = c[k];
-  }
-}
-
-/* ---------- firma ---------- */
-function setupSig(wrap, existing){
-  const cv = wrap.querySelector('canvas');
-  const dpr = Math.min(2, window.devicePixelRatio || 1);
-  const w = wrap.clientWidth, h = wrap.clientHeight;
-  cv.width = Math.round(w * dpr); cv.height = Math.round(h * dpr);
-  const ctx = cv.getContext('2d');
-  ctx.scale(dpr, dpr);
-  ctx.lineWidth = 2.4; ctx.lineCap = 'round'; ctx.lineJoin = 'round';
-  ctx.strokeStyle = ctx.fillStyle = '#14202B';
-  const sig = {drawn:false, data: isImg(existing) ? existing : null};
-  if (sig.data) {
-    wrap.classList.add('signed');
-    const im = new Image(); im.onload = () => ctx.drawImage(im, 0, 0, w, h); im.src = sig.data;
-  }
-  let drawing = false, last = null;
-  const pos = e => { const r = cv.getBoundingClientRect(); return {x: e.clientX - r.left, y: e.clientY - r.top}; };
-  cv.addEventListener('pointerdown', e => {
-    e.preventDefault();
-    try { cv.setPointerCapture(e.pointerId); } catch (_) {}
-    drawing = true; last = pos(e);
-    ctx.beginPath(); ctx.arc(last.x, last.y, 1.2, 0, Math.PI * 2); ctx.fill();
-    sig.drawn = true; F.dirty = true; wrap.classList.add('signed');
-  });
-  cv.addEventListener('pointermove', e => {
-    if (!drawing) return;
-    const p = pos(e);
-    ctx.beginPath(); ctx.moveTo(last.x, last.y); ctx.lineTo(p.x, p.y); ctx.stroke();
-    last = p;
-  });
-  const end = () => { drawing = false; };
-  cv.addEventListener('pointerup', end);
-  cv.addEventListener('pointercancel', end);
-  sig.clear = () => { ctx.clearRect(0, 0, w, h); sig.drawn = false; sig.data = null; wrap.classList.remove('signed'); };
-  sig.value = () => sig.drawn ? cv.toDataURL('image/png') : sig.data;
-  return sig;
+  const add = (list, v) => v ? [v, ...list.filter(x => x.toLowerCase() !== v.toLowerCase())].slice(0, 80) : list;
+  if (p.operario) { S.kv.operario = p.operario; store.set('operario', S.kv.operario).catch(() => {}); }
+  if (p.instalacion) { S.kv.instalaciones = add(S.kv.instalaciones, p.instalacion); store.set('instalaciones', S.kv.instalaciones).catch(() => {}); }
+  if (p.equipo) { S.kv.equipos = add(S.kv.equipos, p.equipo); store.set('equipos', S.kv.equipos).catch(() => {}); }
+  if (p.vivienda) { S.kv.viviendas = add(S.kv.viviendas, p.vivienda); store.set('viviendas', S.kv.viviendas).catch(() => {}); }
 }
 
 /* ---------- fotos ---------- */
-function renderPhotos(){
-  const box = $('#photoBox'); if (!box) return;
-  const thumbs = F.fotos.map((src, i) => `<div class="ph"><img src="${esc(src)}" alt="Foto ${i + 1}"><button type="button" data-rmph="${i}" aria-label="Quitar foto ${i + 1}">×</button></div>`).join('');
-  const add = F.fotos.length < 3 ? `<input type="file" id="photoIn" class="vh" accept="image/*" multiple><label for="photoIn" class="addph" id="addph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>Añadir foto</label>` : '';
+function fotosDe(key){ return key === 'main' ? F.fotos : (revOf(key).f = revOf(key).f || []); }
+function renderPhotoBox(key){
+  const box = $(`#formView [data-phbox="${key}"]`); if (!box) return;
+  const arr = fotosDe(key), kid = safeId(key);
+  const thumbs = arr.map((src, i) => `<div class="ph"><img src="${esc(src)}" alt="Foto ${i + 1}"><button type="button" data-rmph="${esc(key)}" data-i="${i}" aria-label="Quitar foto ${i + 1}">×</button></div>`).join('');
+  const add = arr.length < 3 ? `<input type="file" id="pi_${kid}" class="vh" accept="image/*" multiple data-phkey="${esc(key)}"><label for="pi_${kid}" class="addph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>Añadir foto</label>` : '';
   box.innerHTML = thumbs + add;
 }
 function loadImg(src){
@@ -654,7 +958,7 @@ async function compress(file){
 /* ---------- servidor (Google Apps Script) ---------- */
 async function llamar(cuerpo, ms){
   const ctl = new AbortController();
-  const t = setTimeout(() => ctl.abort(), ms || 90000);
+  const t = setTimeout(() => ctl.abort(), ms || 180000);
   let res, j;
   try {
     res = await fetch(CFG.servidor.trim(), {
@@ -678,15 +982,25 @@ function cuerpoParte(p){
     observaciones: p.observaciones || '', guardadoEn: p.guardadoEn || ''
   };
   if (p.tipo === 'checkin') b.tipoTrabajo = p.tipoTrabajo || '';
-  if (p.tipo === 'checkout') Object.assign(b, {
-    checkinId: p.checkinId || '', trabajoRealizado: p.trabajoRealizado || '', materiales: p.materiales || '',
-    estadoEquipo: p.estadoEquipo || '', duracionMin: Number.isFinite(p.duracionMin) ? p.duracionMin : '',
-    firmante: p.firmante || '', firma: isImg(p.firma) ? p.firma : ''
-  });
   if (p.tipo === 'incidencia') Object.assign(b, {
     categoria: p.categoria || '', prioridad: p.prioridad || '', equipoParado: !!p.equipoParado,
     descripcion: p.descripcion || '', fotos: (p.fotos || []).filter(isImg)
   });
+  if (p.tipo === 'checkoutViv') {
+    const insts = instancias(+p.habitaciones || 0, +p.banos || 0);
+    Object.assign(b, {
+      vivienda: p.vivienda || '', habitaciones: +p.habitaciones || 0, banos: +p.banos || 0,
+      llaves: p.llaves === '' || p.llaves == null ? '' : +p.llaves, ropaRetirada: !!p.ropaRetirada,
+      revision: insts.flatMap(i => i.sec.items.map(it => {
+        const r = (p.rev || {})[i.id + ':' + it[0]] || {};
+        return {
+          estancia: i.nombre, categoria: it[1], punto: it[2], estado: r.e || '',
+          donde: r.e === 'mal' ? (r.d || '') : '', actuacion: r.e === 'mal' ? (r.a || '') : '',
+          fotos: r.e === 'mal' ? (r.f || []).filter(isImg) : []
+        };
+      }))
+    });
+  }
   return b;
 }
 
@@ -695,7 +1009,7 @@ function textoError(e){
     case 'codigo': return 'El servidor no acepta el código de esta tablet. Revísalo en Ajustes (engranaje de arriba).';
     case 'sin-configurar': return 'El servidor no está terminado de configurar. Avisa a quien lo montó (guía, paso 2).';
     case 'ocupado': return 'El servidor está ocupado. Vuelve a pulsar Subir todo en un momento.';
-    case 'datos': return 'Un parte tiene datos que el servidor no acepta. Ábrelo, revísalo y vuelve a intentarlo.';
+    case 'datos': return 'Un parte tiene datos que el servidor no acepta. Puede que el script de Google no esté actualizado a esta versión de la app.';
     case 'servidor': return 'El servidor dio un error al guardar. Vuelve a intentarlo y, si se repite, avisa a la oficina.';
     case 'respuesta': return 'El servidor no respondió como se esperaba. Revisa que el script esté publicado con acceso para Cualquier usuario (guía, paso 3).';
     default: return 'No se pudo conectar con el servidor. Comprueba la conexión y vuelve a pulsar Subir todo.';
@@ -744,10 +1058,9 @@ async function sync(){
 }
 
 async function clearUploaded(){
-  const keep = S.partes.filter(p => p.estado !== 'subido' || (p.tipo === 'checkin' && !p.cerradoPor));
-  const drop = S.partes.filter(p => keep.indexOf(p) === -1);
+  const drop = S.partes.filter(p => p.estado === 'subido');
   for (const p of drop) { try { await store.del(p.id); } catch (_) {} }
-  S.partes = keep;
+  S.partes = S.partes.filter(p => p.estado !== 'subido');
   render();
   toast(drop.length === 1 ? 'Quitado 1 parte de la tablet' : `Quitados ${drop.length} partes de la tablet`);
 }
@@ -777,7 +1090,7 @@ function openSetup(opts){
         <p class="hint" id="s_tablet-h">Aparece en la hoja de cálculo para saber de qué tablet llegó cada parte. Por ejemplo, Tablet Juan.</p></div>
       <div class="field"><label class="lbl" for="s_operario">Técnico habitual <span class="opt">(opcional)</span></label>
         <input type="text" id="s_operario" value="${esc(S.kv.operario)}" autocomplete="off" aria-describedby="s_operario-h">
-        <p class="hint" id="s_operario-h">Se rellena solo en el campo Operario de cada parte.</p></div>
+        <p class="hint" id="s_operario-h">Se rellena solo en el campo Técnico de cada parte.</p></div>
       <div class="field"><label class="lbl" for="s_codigo">Código de acceso</label>
         <input type="text" id="s_codigo" value="${esc(S.kv.codigo)}" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" aria-describedby="s_codigo-h">
         <p class="hint" id="s_codigo-h">Te lo da la oficina. Sirve para que solo vuestras tablets puedan enviar partes.</p></div>
@@ -835,22 +1148,26 @@ async function guardarSetup(sinComprobar){
 /* ---------- render ---------- */
 function rowHTML(p, editable){
   const t = TIPOS[p.tipo] || {nombre:p.tipo, cls:'in'};
-  let sub = p.tipo === 'incidencia'
-    ? [p.prioridad ? 'Prioridad ' + p.prioridad.toLowerCase() : '', p.equipo].filter(Boolean).join(', ')
-    : [p.equipo, p.ot ? 'OT ' + p.ot : ''].filter(Boolean).join(', ');
+  const lugar = p.vivienda || p.instalacion || 'Sin nombre';
+  let sub;
+  if (p.tipo === 'incidencia') sub = [p.prioridad ? 'Prioridad ' + p.prioridad.toLowerCase() : '', p.equipo].filter(Boolean).join(', ');
+  else if (p.tipo === 'checkoutViv') {
+    const r = resumenRev(p.rev, instancias(+p.habitaciones || 0, +p.banos || 0));
+    sub = [p.habitaciones ? `${p.habitaciones} hab.` : '', p.banos ? `${p.banos} ${+p.banos === 1 ? 'baño' : 'baños'}` : '',
+           p.estado === 'borrador' ? `${r.marcados} de ${r.total} revisados` : '', r.mal ? `${r.mal} con problema` : ''].filter(Boolean).join(', ');
+  }
+  else sub = [p.equipo, p.ot ? 'OT ' + p.ot : ''].filter(Boolean).join(', ');
   if (!editable && p.subidoEn) sub = 'Subido ' + fmt(p.subidoEn) + (sub ? ', ' + sub : '');
-  const inner = `<span class="mark mark-${t.cls}">${esc(t.nombre)}</span><span class="row-main"><strong>${esc(p.instalacion)}</strong><span class="row-sub">${esc(sub)}</span></span><span class="row-time">${esc(fmt(p.fecha))}</span>`;
+  const inner = `<span class="mark mark-${t.cls}">${esc(t.nombre)}</span><span class="row-main"><strong>${esc(lugar)}</strong><span class="row-sub">${esc(sub)}</span></span><span class="row-time">${esc(fmt(p.fecha))}</span>`;
   return editable
-    ? `<li><button class="row" data-edit="${esc(p.id)}" aria-label="Editar ${esc(t.nombre)} de ${esc(p.instalacion)}">${inner}</button></li>`
+    ? `<li><button class="row" data-edit="${esc(p.id)}" aria-label="${p.estado === 'borrador' ? 'Seguir con' : 'Editar'} ${esc(t.largo || t.nombre)} de ${esc(lugar)}">${inner}</button></li>`
     : `<li><div class="row done">${inner}</div></li>`;
 }
 
 function renderDevice(){
-  const open = openCheckins();
-  $('#enCurso').innerHTML = open.length
-    ? `<h2>En curso <span class="n">${open.length}</span></h2>` + open.map(c => `
-      <div class="job"><div class="job-main"><strong>${esc(c.instalacion)}</strong><span class="row-sub">${esc([c.equipo, 'desde ' + fmt(c.fecha)].filter(Boolean).join(', '))}</span></div>
-      <button class="btn btn-sm btn-out" data-close="${esc(c.id)}">Hacer check-out</button></div>`).join('')
+  const bor = S.partes.filter(p => p.estado === 'borrador').sort(byFechaDesc);
+  $('#borradores').innerHTML = bor.length
+    ? `<h2>Sin terminar <span class="n">${bor.length}</span></h2><ul class="list">${bor.map(p => rowHTML(p, true)).join('')}</ul><p class="note">Toca para seguir rellenándolo. No se sube hasta que lo guardes.</p>`
     : '';
 
   const pend = S.partes.filter(p => p.estado === 'pendiente').sort(byFechaDesc);
@@ -885,12 +1202,14 @@ function renderBanners(){
 
 function renderSync(){
   const pend = S.partes.filter(p => p.estado === 'pendiente').length;
+  const bor = S.partes.filter(p => p.estado === 'borrador').length;
   $('#syncCount').textContent = pend;
   $('#syncLabel').textContent = pend === 1 ? 'parte sin subir' : 'partes sin subir';
   const st = $('#syncStatus');
   let text, kind = '';
   if (S.syncing) text = S.progress;
   else if (S.msg) { text = S.msg.text; kind = S.msg.kind || ''; }
+  else if (!pend && bor) text = bor === 1 ? 'Hay 1 parte sin terminar. Guárdalo para poder subirlo.' : `Hay ${bor} partes sin terminar. Guárdalos para poder subirlos.`;
   else if (!pend) text = 'Todo está subido.';
   else if (!S.online) text = 'Sin conexión. Quedan guardados aquí hasta que los subas.';
   else if (!S.kv.codigo || !servidorOk()) text = 'Prepara la tablet para poder subirlos.';
@@ -914,35 +1233,29 @@ function toast(t){
 }
 
 /* ---------- eventos ---------- */
-function pick(c){ return {operario: c.operario, instalacion: c.instalacion, equipo: c.equipo, ot: c.ot}; }
-
-document.addEventListener('click', e => {
-  const el = e.target.closest('[data-new],[data-edit],[data-close],[data-act],[data-rmph],.seg button');
+document.addEventListener('click', async e => {
+  const el = e.target.closest('[data-new],[data-edit],[data-act],[data-rmph],[data-all],.seg button,.tri button,.est-toggle');
   if (!el) return;
 
+  if (el.matches('.tri button')) { setEstado(el.closest('.pt').dataset.key, el.dataset.st); markDirty(); return; }
+  if (el.matches('.est-toggle')) { toggleInst(el.closest('.est').dataset.inst); return; }
+  if (el.dataset.all) { todoBien(el.dataset.all); markDirty(); return; }
   if (el.matches('.seg button')) {
     el.parentElement.querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', b === el));
-    F.dirty = true; return;
+    const k = el.closest('.field').dataset.k;
+    if (k === 'habitaciones' || k === 'banos') { renderChecklist(true); resetForce(); }
+    markDirty(); return;
   }
-  if (el.dataset.new) {
-    const tipo = el.dataset.new, prefill = {};
-    if (tipo === 'checkout') {
-      const open = openCheckins();
-      if (open.length === 1) Object.assign(prefill, pick(open[0]), {checkinId: open[0].id});
-    }
-    openForm(tipo, {prefill}); return;
-  }
+  if (el.dataset.new) { openForm(el.dataset.new); return; }
   if (el.dataset.edit) {
     const p = S.partes.find(x => x.id === el.dataset.edit);
     if (p) openForm(p.tipo, {editId: p.id});
     return;
   }
-  if (el.dataset.close) {
-    const c = S.partes.find(x => x.id === el.dataset.close);
-    if (c) openForm('checkout', {prefill: Object.assign(pick(c), {checkinId: c.id})});
-    return;
+  if (el.dataset.rmph !== undefined) {
+    fotosDe(el.dataset.rmph).splice(+el.dataset.i, 1);
+    renderPhotoBox(el.dataset.rmph); markDirty(); return;
   }
-  if (el.dataset.rmph !== undefined) { F.fotos.splice(+el.dataset.rmph, 1); F.dirty = true; renderPhotos(); return; }
   switch (el.dataset.act) {
     case 'sync': sync(); break;
     case 'ajustes': openSetup(); break;
@@ -956,9 +1269,11 @@ document.addEventListener('click', e => {
     case 'actualizar':
       if (S.nuevaVersion) { S.actualizando = true; S.nuevaVersion.postMessage('actualizar'); }
       break;
-    case 'sigclear': if (F.sig) F.sig.clear(); break;
     case 'back':
-      if (F.dirty && !F.backArmed) {
+      if (F.borradorOk) {
+        if (F.dirty) { clearTimeout(draftTimer); await saveDraft(); toast('Guardado como sin terminar. Puedes seguir luego.'); }
+        closeOverlay();
+      } else if (F.dirty && !F.backArmed) {
         F.backArmed = true; toast('Pulsa otra vez para salir sin guardar');
         setTimeout(() => { F.backArmed = false; }, 3500);
       } else closeOverlay();
@@ -980,25 +1295,32 @@ document.addEventListener('click', e => {
 
 $('#formView').addEventListener('submit', e => { e.preventDefault(); saveForm(); });
 $('#setupView').addEventListener('submit', e => { e.preventDefault(); guardarSetup(false); });
-$('#formView').addEventListener('input', () => { F.dirty = true; });
+$('#formView').addEventListener('input', e => {
+  const t = e.target;
+  if (t.dataset && t.dataset.fld) { revOf(t.closest('.pt').dataset.key)[t.dataset.fld] = t.value; }
+  if (t.id === 'f_llaves') F.llaves = t.value;
+  markDirty();
+});
 $('#formView').addEventListener('change', async e => {
-  F.dirty = true;
-  if (e.target.id === 'f_checkinId') prefillFromCheckin(e.target.value);
-  if (e.target.id === 'photoIn') {
-    const files = Array.from(e.target.files || []);
-    const add = $('#addph'); if (add) add.classList.add('busy');
+  const t = e.target;
+  if (t.type === 'file' && t.dataset.phkey) {
+    const key = t.dataset.phkey, arr = fotosDe(key);
+    const files = Array.from(t.files || []);
+    const lbl = t.nextElementSibling; if (lbl) lbl.classList.add('busy');
     for (const file of files) {
-      if (F.fotos.length >= 3) { toast('Máximo 3 fotos por incidencia'); break; }
-      try { F.fotos.push(await compress(file)); } catch (_) { toast('No se pudo leer una de las fotos'); }
+      if (arr.length >= 3) { toast('Máximo 3 fotos'); break; }
+      try { arr.push(await compress(file)); } catch (_) { toast('No se pudo leer una de las fotos'); }
     }
-    renderPhotos();
+    renderPhotoBox(key);
   }
+  markDirty();
 });
 
 window.addEventListener('online', () => { S.online = true; if (S.msg && S.msg.kind === 'err') setMsg(null); renderConn(); renderSync(); });
 window.addEventListener('offline', () => { S.online = false; renderConn(); renderSync(); });
 window.addEventListener('beforeinstallprompt', e => { e.preventDefault(); S.installEvt = e; renderBanners(); });
 window.addEventListener('appinstalled', () => { S.installEvt = null; renderBanners(); });
+document.addEventListener('visibilitychange', () => { if (document.hidden && draftTimer) { clearTimeout(draftTimer); saveDraft(); } });
 
 /* ---------- instalación y actualizaciones ---------- */
 function registrarSW(){
@@ -1023,10 +1345,9 @@ function registrarSW(){
 async function init(){
   S.persistent = await store.init();
   try {
-    S.partes = (await store.all()) || [];
+    S.partes = ((await store.all()) || []).filter(p => TIPOS[p.tipo]);
     for (const k of ['operario', 'tablet', 'codigo', 'ultimoEnvio']) S.kv[k] = (await store.get(k)) || '';
-    S.kv.instalaciones = (await store.get('instalaciones')) || [];
-    S.kv.equipos = (await store.get('equipos')) || [];
+    for (const k of ['instalaciones', 'equipos', 'viviendas']) S.kv[k] = (await store.get(k)) || [];
     S.kv.aplazado = !!(await store.get('aplazado'));
   } catch (_) {}
   try { if (navigator.storage && navigator.storage.persist) navigator.storage.persist().catch(() => {}); } catch (_) {}

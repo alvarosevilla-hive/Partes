@@ -4,8 +4,8 @@
   (la que termina en /exec). Ver la guía, paso 3.
 */
 window.PARTES_CONFIG = {
-  servidor: 'https://script.google.com/macros/s/AKfycbx-n_V5rK0SqMtfgGdIwXaAAhWZbb3e3xXcUikjLO5UtAXY_5mhjAhcoouAQwbOEvM5/exec',
+  servidor: 'PEGA_AQUI_LA_URL_DEL_SCRIPT',
 
   // Opcional: nombre de la empresa, aparece debajo del título.
-  empresa: 'GRUPO HIVE'
+  empresa: ''
 };

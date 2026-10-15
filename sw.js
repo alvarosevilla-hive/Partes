@@ -3,7 +3,7 @@
   Si cambias cualquier archivo de la app, sube el número de VERSION
   para que las tablets descarguen la versión nueva.
 */
-const VERSION = 'partes-v1';
+const VERSION = 'partes-v2';
 const ARCHIVOS = [
   './',
   './index.html',
